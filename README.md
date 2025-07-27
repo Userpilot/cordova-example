@@ -1,6 +1,6 @@
 # Cordova Quickstart for Userpilot SDK
 
-[![GitHub](https://img.shields.io/badge/GitHub-cordova--plugin-blue)](https://github.com/Userpilot/cordova-plugin)
+[![GitHub](https://img.shields.io/badge/GitHub-cordova--plugin-blue)](https://www.npmjs.com/package/@userpilot/cordova)
 
 Userpilot lets you add user analytics and in-app experiences to your mobile app. Capture user insights and deliver personalized experiences in real time with advanced segmentation, flow analytics, and engagement tracking.
 
