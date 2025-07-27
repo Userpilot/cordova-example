@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.userpilot.cordovasample" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>UserpilotSample</name>
+    <description>Userpilot Sample App</description>
+    <author email="dev@userpilot.com" href="https://userpilot.com">
+        Userpilot
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    
+    <!-- iOS Platform Configuration -->
+    <platform name="ios">
+        <!-- Set minimum iOS deployment target to 12.0 -->
+        <preference name="deployment-target" value="13.0" />
+        <preference name="target-device" value="universal" />
+        
+        <!-- Swift version configuration -->
+        <preference name="SwiftVersion" value="5.0" />
+        
+        <!-- Build settings -->
+        <config-file target="*-Info.plist" parent="CFBundleVersion">
+            <string>1</string>
+        </config-file>
+        
+        <!-- Fix for various iOS build issues -->
+        <preference name="WKWebViewOnly" value="true" />
+        <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+        
+        <!-- Build configuration -->
+        <config-file target="build.xcconfig" parent="IPHONEOS_DEPLOYMENT_TARGET">
+            <string>13.0</string>
+        </config-file>
+        
+        <config-file target="build.xcconfig" parent="SWIFT_VERSION">
+            <string>5.0</string>
+        </config-file>
+    </platform>
+    
+    <!-- Android Platform Configuration -->
+    <platform name="android">
+        <preference name="GradlePluginKotlinEnabled" value="true" />
+        <preference name="GradlePluginKotlinVersion" value="1.9.0" />
+
+        <preference name="android-minSdkVersion" value="21" />
+        <preference name="android-compileSdkVersion" value="35" />
+        <preference name="android-targetSdkVersion" value="35" />
+        <preference name="GradlePluginGoogleServicesEnabled" value="true" />
+        <preference name="GradlePluginGoogleServicesVersion" value="4.4.2" />
+    </platform>
+</widget>

@@ -1,0 +1,41 @@
+{
+  "name": "com.userpilot.cordovasample",
+  "displayName": "UserpilotSample",
+  "version": "1.0.0",
+  "description": "Userpilot Cordova Plugin Sample App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "cordova clean",
+    "prepare": "cordova prepare",
+    "build": "cordova build",
+    "run:android": "cordova run android",
+    "run:ios": "cordova run ios",
+    "build:android": "cordova build android",
+    "build:ios": "cordova build ios",
+    "remove:userpilot": "cordova plugin remove @userpilot/cordova",
+    "add:userpilot": "cordova plugin add @userpilot/cordova",
+    "add:userpilot:local": "cordova plugin add ../cordova-plugin"
+  },
+  "keywords": [
+    "ecosystem:cordova, userpilot"
+  ],
+  "author": "Userpilot",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@userpilot/cordova": "file:../cordova-plugin",
+    "cordova-android": "^14.0.1",
+    "cordova-ios": "^7.1.1",
+    "cordova-plugin-android-permissions": "^1.1.5"
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "plugins": {
+      "cordova-plugin-android-permissions": {},
+      "@userpilot/cordova": {}
+    }
+  }
+}
