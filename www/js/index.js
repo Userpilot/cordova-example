@@ -87,7 +87,7 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    const token = 'NX-b83a34b8';
+    const token = 'APP_TOKEN';
     const options = {
         logging: true,
         useInAppBrowser: false
