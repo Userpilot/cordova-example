@@ -1,7 +1,7 @@
 {
   "name": "com.userpilot.cordovasample",
   "displayName": "UserpilotSample",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Userpilot Cordova Plugin Sample App",
   "main": "index.js",
   "scripts": {
