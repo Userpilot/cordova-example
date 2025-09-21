@@ -26,30 +26,6 @@ function onDeviceReady() {
     document.getElementById('deviceready').classList.add('ready');
     document.getElementById('plugin-buttons').style.display = 'block';
     setupEventListeners();
-
-    // Check if we're on Android before requesting permissions
-    if (device.platform === 'Android') {
-        const permissions = cordova.plugins.permissions;
-        const notificationPermission = permissions.POST_NOTIFICATIONS;
-        permissions.checkPermission(notificationPermission, function(status) {
-            if (!status.hasPermission) {
-                // Request the permission
-                permissions.requestPermission(notificationPermission, function(status) {
-                    if (status.hasPermission) {
-                        console.log("✅ Notification permission granted");
-                    } else {
-                        console.warn("❌ Notification permission denied");
-                    }
-                }, function() {
-                    console.error("⚠️ Failed to request permission");
-                });
-            } else {
-                console.log("✅ Notification permission already granted");
-            }
-        }, function() {
-            console.error("⚠️ Failed to check permission");
-        });
-    }
 }
 
 function setupEventListeners() {
@@ -87,10 +63,13 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    const token = 'APP_TOKEN';
+    const token = 'NX-b83a34b8';
     const options = {
         logging: true,
-        useInAppBrowser: false
+        useInAppBrowser: false,
+        sdkMessages: {
+            'PushNotificationMessage': 'Custom push notification message'
+        }
     };
         
     logOutput('Setup options: ' + JSON.stringify(options));

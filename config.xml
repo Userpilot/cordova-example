@@ -11,7 +11,7 @@
     
     <!-- iOS Platform Configuration -->
     <platform name="ios">
-        <!-- Set minimum iOS deployment target to 12.0 -->
+        <!-- Set minimum iOS deployment target to 13.0 -->
         <preference name="deployment-target" value="13.0" />
         <preference name="target-device" value="universal" />
         

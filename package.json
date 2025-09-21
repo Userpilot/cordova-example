@@ -6,6 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "cordova:platform:add": "cordova platform add android ios",
+    "cordova:platform:remove": "cordova platform remove android ios",
     "clean": "cordova clean",
     "prepare": "cordova prepare",
     "build": "cordova build",
@@ -25,8 +27,7 @@
   "devDependencies": {
     "@userpilot/cordova": "file:../cordova-plugin",
     "cordova-android": "^14.0.1",
-    "cordova-ios": "^7.1.1",
-    "cordova-plugin-android-permissions": "^1.1.5"
+    "cordova-ios": "^7.1.1"
   },
   "cordova": {
     "platforms": [
@@ -34,7 +35,6 @@
       "ios"
     ],
     "plugins": {
-      "cordova-plugin-android-permissions": {},
       "@userpilot/cordova": {}
     }
   }
