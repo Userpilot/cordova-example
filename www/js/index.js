@@ -63,13 +63,11 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    const token = 'NX-b83a34b8';
+    const token = 'APP_TOKEN';
     const options = {
-        logging: true,
-        useInAppBrowser: false,
-        sdkMessages: {
-            'PushNotificationMessage': 'Custom push notification message'
-        }
+        logging: true, // Enable/disable SDK logging
+        useInAppBrowser: false, // Enable/disable in-app browser for links - Works for Android
+        disableRequestPushNotificationsPermission: true // Disable request push notifications permission by SDK
     };
         
     logOutput('Setup options: ' + JSON.stringify(options));

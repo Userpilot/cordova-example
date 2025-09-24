@@ -65,7 +65,8 @@ Configure the Userpilot SDK settings:
    ```js
    const options = {
        logging: true,        // Set to false for production
-       useInAppBrowser: true // Set to true to use in-app browser
+       useInAppBrowser: true, // Set to true to use in-app browser
+       disableRequestPushNotificationsPermission: true // Disable request push notifications permission by SDK
    };
    ```
 
