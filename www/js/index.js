@@ -67,7 +67,7 @@ function callSetup() {
     const options = {
         logging: true, // Enable/disable SDK logging
         useInAppBrowser: false, // Enable/disable in-app browser for links - Works for Android
-        disableRequestPushNotificationsPermission: true // Disable request push notifications permission by SDK
+        disableRequestPushNotificationsPermission: false // Disable request push notifications permission by SDK
     };
         
     logOutput('Setup options: ' + JSON.stringify(options));
