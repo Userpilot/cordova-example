@@ -129,6 +129,13 @@ function registerCallbacks() {
         return;
     }
     
+    // Register test event handler
+    if (typeof plugin.on === 'function') {
+        plugin.on('TestEvent', (data) => {
+            logCallback('TestEvent', data);
+        });
+    }
+    
     plugin.onUserpilotNavigationEvent((data) => {
         logCallback('UserpilotNavigationEvent', data);
     });
@@ -151,21 +158,22 @@ function registerCallbacks() {
 // Utility function to log output to the UI
 function logOutput(message) {
     const outputContent = document.getElementById('outputContent');
+    if (!outputContent) return;
+    
     const timestamp = new Date().toLocaleTimeString();
     const logEntry = document.createElement('div');
     logEntry.className = 'log-entry';
     logEntry.innerHTML = `<span class="timestamp">[${timestamp}]</span> ${message}`;
     outputContent.appendChild(logEntry);
     outputContent.scrollTop = outputContent.scrollHeight;
-    
-    // Also log to console
-    console.log(message);
 }
 
 // Utility function to log callbacks to the UI
 function logCallback(category, data) {
     const callbacksContent = document.getElementById('callbacksContent');
-    const dateTime = new Date().toLocaleTimeString(); // Use current time since timestamp was removed
+    if (!callbacksContent) return;
+    
+    const dateTime = new Date().toLocaleTimeString();
     const logEntry = document.createElement('div');
     logEntry.className = 'log-entry callback-entry';
     logEntry.innerHTML = `
@@ -179,7 +187,4 @@ function logCallback(category, data) {
     setTimeout(() => {
         callbacksContent.scrollTop = callbacksContent.scrollHeight;
     }, 10);
-    
-    // Also log to console with more detail
-    console.log(`[${category} Callback]`, data);
 }
