@@ -1,7 +1,7 @@
 {
   "name": "com.userpilot.cordovasample",
   "displayName": "UserpilotSample",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Userpilot Cordova Plugin Sample App",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "devDependencies": {
     "@userpilot/cordova": "file:../cordova-plugin",
     "cordova-android": "^14.0.1",
-    "cordova-ios": "^7.1.1"
+    "cordova-ios": "^8.0.0"
   },
   "cordova": {
     "platforms": [
@@ -35,7 +35,9 @@
       "ios"
     ],
     "plugins": {
-      "@userpilot/cordova": {}
+      "@userpilot/cordova": {
+        "DEPLOYMENT-TARGET": "13.0"
+      }
     }
   }
 }
