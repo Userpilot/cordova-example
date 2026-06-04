@@ -21,11 +21,357 @@
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener('deviceready', onDeviceReady, false);
 
+// Track if Userpilot SDK is initialized
+var isUserpilotInitialized = false;
+var pendingDeepLinkUrl = null;
+
+// Process deep link URL through Userpilot plugin
+function processDeepLink(url) {
+    if (!url) return;
+    
+    // If Userpilot is not initialized yet, store the URL for later
+    if (!isUserpilotInitialized) {
+        logOutput('Userpilot not initialized yet, storing deep link for later: ' + url);
+        pendingDeepLinkUrl = url;
+        return;
+    }
+    
+    logOutput('Processing deep link: ' + url);
+    
+    const plugin = getUserpilotPlugin();
+    if (!plugin) {
+        logOutput('Userpilot plugin not found. Cannot handle deep link.');
+        return;
+    }
+    
+    plugin.didHandleUrl(
+        url,
+        function(result) {
+            var handled = result === true || result === 'true';
+            logOutput('Userpilot didHandleUrl result: ' + handled);
+            
+            if (!handled) {
+                // URL was not handled by Userpilot, you can add custom handling here
+                logOutput('Deep link not handled by Userpilot. Custom handling can be added here.');
+                handleCustomDeepLink(url);
+            }
+        },
+        function(error) {
+            logOutput('Userpilot didHandleUrl error: ' + JSON.stringify(error));
+        }
+    );
+}
+
+// Custom deep link handler for URLs not handled by Userpilot
+function handleCustomDeepLink(url) {
+    // Parse the URL and handle custom schemes/paths
+    try {
+        var urlParts = url.replace(/.*?:\/\//g, '').split('/');
+        var action = urlParts[0] || '';
+        var params = urlParts.slice(1);
+        
+        logOutput('Custom deep link - Action: ' + action + ', Params: ' + JSON.stringify(params));
+        
+        // Add your custom deep link handling logic here
+        // For example, navigate to a specific screen based on action
+    } catch (e) {
+        logOutput('Error parsing custom deep link: ' + e.message);
+    }
+}
+
+// Setup deep link handler using cordova-plugin-deeplinks
+function setupDeepLinkHandler() {
+    // Check if universalLinks plugin is available
+    if (typeof universalLinks === 'undefined' && !(window.plugins && window.plugins.universalLinks)) {
+        logOutput('universalLinks plugin not found');
+        return;
+    }
+    
+    var ulPlugin = universalLinks || window.plugins.universalLinks;
+    
+    logOutput('Setting up deep link handler...');
+    
+    // Subscribe to the 'deeplink' event (configured in config.xml)
+    ulPlugin.subscribe('deeplink', function(eventData) {
+        console.log('Deep link received:', JSON.stringify(eventData));
+        logOutput('Deep link received: ' + JSON.stringify(eventData));
+        
+        // eventData contains: { url, host, path, scheme, hash, ... }
+        // Pass the full URL to userpilot.didHandleUrl
+        var fullUrl = eventData.url;
+        processDeepLink(fullUrl);
+    });
+    
+    logOutput('Deep link handler registered for event: deeplink');
+}
+
 function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
     document.getElementById('deviceready').classList.add('ready');
-    document.getElementById('plugin-buttons').style.display = 'block';
+    document.getElementById('app-views').style.display = 'block';
     setupEventListeners();
+    setupViewRouter();
+    setupDemoInteractions();
+    
+    // Auto-initialize Userpilot SDK, then setup deep link handler
+    initializeUserpilot();
+}
+
+// Hash router for the app views (home / sdk / components). Switching the hash
+// shows the matching view and updates document.title; the plugin's screen
+// auto-capture reports each hash route (e.g. "/sdk") as a distinct screen.
+function setupViewRouter() {
+    var views = document.querySelectorAll('.view');
+    if (!views.length) return;
+
+    var titles = {
+        '/home': 'Userpilot',
+        '/sdk': 'SDK Methods',
+        '/components': 'Components',
+        '/navigation': 'Navigation',
+        '/menus': 'Menus',
+        '/list': 'List',
+        '/config': 'Auto-Capture Config'
+    };
+
+    function render() {
+        var route = (location.hash || '#/home').replace(/^#/, '') || '/home';
+        var matched = false;
+        for (var i = 0; i < views.length; i++) {
+            var isMatch = views[i].getAttribute('data-view') === route;
+            views[i].hidden = !isMatch;
+            if (isMatch) matched = true;
+        }
+        if (!matched) {
+            views[0].hidden = false;
+            route = views[0].getAttribute('data-view');
+        }
+        document.title = titles[route] || 'Userpilot Sample';
+        window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('hashchange', render);
+    if (!location.hash) {
+        location.hash = '#/home';
+    }
+    render();
+
+    // Prevent the demo form from navigating; the engine still captures the submit.
+    var form = document.getElementById('acForm');
+    if (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+    }
+}
+
+// Reads a trimmed value from an input, falling back to a default.
+function inputValue(id, fallback) {
+    var el = document.getElementById(id);
+    var value = el && el.value ? el.value.trim() : '';
+    return value || fallback;
+}
+
+// Wires the UI behaviour for the navigation / menu / config demo screens. The
+// auto-capture engine captures the interactions on its own (delegated document
+// listeners); these handlers only drive the visual behaviour of the widgets.
+function setupDemoInteractions() {
+    setupTabs();
+    setupBottomNav();
+    setupDrawer();
+    setupMenu('dropdownBtn', 'dropdownMenu');
+    setupMenu('contextBtn', 'contextMenu');
+    setupConfigControls();
+
+    // Close transient overlays whenever the screen changes.
+    window.addEventListener('hashchange', closeAllOverlays);
+}
+
+function setupTabs() {
+    var tabs = document.querySelectorAll('.tab[role="tab"]');
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            var target = tab.getAttribute('data-tab');
+            tabs.forEach(function (t) {
+                t.setAttribute('aria-selected', String(t === tab));
+            });
+            document.querySelectorAll('.tab-panel').forEach(function (panel) {
+                panel.hidden = panel.getAttribute('data-panel') !== target;
+            });
+        });
+    });
+}
+
+function setupBottomNav() {
+    var items = document.querySelectorAll('.bottom-nav-item');
+    var label = document.getElementById('bottomNavLabel');
+    items.forEach(function (item) {
+        item.addEventListener('click', function () {
+            items.forEach(function (i) {
+                i.setAttribute('aria-selected', String(i === item));
+            });
+            if (label) {
+                label.textContent = item.getAttribute('data-nav');
+            }
+        });
+    });
+}
+
+function setupDrawer() {
+    var openBtn = document.getElementById('drawerOpenBtn');
+    var drawer = document.getElementById('drawer');
+    var overlay = document.getElementById('drawerOverlay');
+    if (!openBtn || !drawer || !overlay) return;
+
+    function open() {
+        drawer.hidden = false;
+        overlay.hidden = false;
+        drawer.classList.add('open');
+    }
+    function close() {
+        drawer.classList.remove('open');
+        drawer.hidden = true;
+        overlay.hidden = true;
+    }
+
+    openBtn.addEventListener('click', open);
+    overlay.addEventListener('click', close);
+    drawer.querySelectorAll('.menu-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+            logOutput('Drawer item: ' + item.getAttribute('data-action'));
+            close();
+        });
+    });
+}
+
+// Toggle a menu (dropdown / context) anchored to a trigger button.
+function setupMenu(triggerId, menuId) {
+    var trigger = document.getElementById(triggerId);
+    var menu = document.getElementById(menuId);
+    if (!trigger || !menu) return;
+
+    function toggle(show) {
+        menu.hidden = !show;
+        trigger.setAttribute('aria-expanded', String(show));
+    }
+
+    trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        toggle(menu.hidden);
+    });
+    menu.querySelectorAll('.menu-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+            logOutput('Menu item: ' + item.getAttribute('data-action'));
+            toggle(false);
+        });
+    });
+    // Tap outside closes the menu.
+    document.addEventListener('click', function (e) {
+        if (!menu.hidden && e.target !== trigger && !menu.contains(e.target)) {
+            toggle(false);
+        }
+    });
+}
+
+function setupConfigControls() {
+    var plugin = getUserpilotPlugin();
+    var status = document.getElementById('autoCaptureStatus');
+
+    bindClick('stopCaptureBtn', function () {
+        if (plugin && plugin.stopAutoCapture) {
+            plugin.stopAutoCapture(function () {
+                if (status) status.textContent = 'stopped';
+                logOutput('Auto-capture stopped');
+            }, function (err) {
+                logOutput('stopAutoCapture error: ' + JSON.stringify(err));
+            });
+        }
+    });
+
+    bindClick('resumeCaptureBtn', function () {
+        if (plugin && plugin.resumeAutoCapture) {
+            plugin.resumeAutoCapture(function () {
+                if (status) status.textContent = 'running';
+                logOutput('Auto-capture resumed');
+            }, function (err) {
+                logOutput('resumeAutoCapture error: ' + JSON.stringify(err));
+            });
+        }
+    });
+
+    bindClick('redactBtn', function () {
+        if (plugin && plugin.redactText) {
+            plugin.redactText('#redactTarget');
+            logOutput('redactText applied to #redactTarget (captured text now masked)');
+        }
+    });
+
+    bindClick('ignoreBtn', function () {
+        if (plugin && plugin.ignoreInteractions) {
+            plugin.ignoreInteractions('#ignoreTarget');
+            logOutput('ignoreInteractions applied to #ignoreTarget (taps no longer captured)');
+        }
+    });
+}
+
+function bindClick(id, handler) {
+    var el = document.getElementById(id);
+    if (el) {
+        el.addEventListener('click', handler);
+    }
+}
+
+function closeAllOverlays() {
+    ['dropdownMenu', 'contextMenu', 'drawer', 'drawerOverlay'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.hidden = true;
+    });
+    var drawer = document.getElementById('drawer');
+    if (drawer) drawer.classList.remove('open');
+}
+
+// Auto-initialize Userpilot SDK on app start
+function initializeUserpilot() {
+    const token = 'NX-b7b285fd';
+    const options = {
+        logging: true,
+        useInAppBrowser: false,
+        disableRequestPushNotificationsPermission: false,
+        // Auto-capture: track screens (route changes) and interactions automatically.
+        enableScreenAutoCapture: true,
+        enableInteractionAutoCapture: true,
+        enableInteractionValueCapture: true
+    };
+    
+    logOutput('Initializing Userpilot SDK...');
+    
+    const plugin = getUserpilotPlugin();
+    if (!plugin) {
+        logOutput('Userpilot plugin not found.');
+        return;
+    }
+    
+    plugin.setup(
+        token,
+        options,
+        function(result) {
+            logOutput('Userpilot SDK initialized successfully');
+            isUserpilotInitialized = true;
+            
+            // Setup deep link handler after SDK is initialized
+            setupDeepLinkHandler();
+            
+            // Process any pending deep link that arrived before initialization
+            if (pendingDeepLinkUrl) {
+                logOutput('Processing pending deep link: ' + pendingDeepLinkUrl);
+                processDeepLink(pendingDeepLinkUrl);
+                pendingDeepLinkUrl = null;
+            }
+        },
+        function(error) {
+            logOutput('Userpilot SDK setup error: ' + JSON.stringify(error));
+        }
+    );
 }
 
 function setupEventListeners() {
@@ -38,6 +384,19 @@ function setupEventListeners() {
     document.getElementById('triggerExpBtn').addEventListener('click', callTriggerExperience);
     document.getElementById('endExpBtn').addEventListener('click', callEndExperience);
     document.getElementById('logoutBtn').addEventListener('click', callLogout);
+    
+    // Deep link test button (if it exists)
+    var deepLinkBtn = document.getElementById('deepLinkBtn');
+    if (deepLinkBtn) {
+        deepLinkBtn.addEventListener('click', testDeepLink);
+    }
+}
+
+// Test deep link handling with a sample URL
+function testDeepLink() {
+    var testUrl = 'userpilot-nx-b7b285fd://sdk/experience_preview/49?type=mobile_content';
+    logOutput('Testing deep link with: ' + testUrl);
+    processDeepLink(testUrl);
 }
 
 // Helper function to find the Userpilot plugin
@@ -63,11 +422,14 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    const token = 'APP_TOKEN';
+    const token = 'NX-b7b285fd';
     const options = {
         logging: true, // Enable/disable SDK logging
         useInAppBrowser: false, // Enable/disable in-app browser for links - Works for Android
-        disableRequestPushNotificationsPermission: false // Disable request push notifications permission by SDK
+        disableRequestPushNotificationsPermission: false, // Disable request push notifications permission by SDK
+        enableScreenAutoCapture: true, // Auto-capture screen/route changes
+        enableInteractionAutoCapture: true, // Auto-capture taps and other interactions
+        enableInteractionValueCapture: true // Include value payloads (is_checked, selected_value, ...)
     };
         
     logOutput('Setup options: ' + JSON.stringify(options));
@@ -75,10 +437,11 @@ function callSetup() {
 }
 
 function callIdentify() {
-    const userId = 'user123';
+    const userId = inputValue('userIdInput', 'user123');
     const userProperties = { name: 'John Doe', email: 'john.doe@example.com', plan: 'premium' };
     const company = { id: 'company123', name: 'Sample Company' };
     
+    logOutput('Identify userId: ' + userId);
     executePluginMethod('identify', [userId, userProperties, company], 'Identify success');
 }
 
@@ -91,23 +454,18 @@ function callLogout() {
 }
 
 function callScreen() {
-    const screenNames = ['main', 'screen one', 'screen two', 'events', 'identify'];
-    const randomScreenName = screenNames[Math.floor(Math.random() * screenNames.length)];
+    const screenName = inputValue('screenNameInput', 'Dashboard');
     
-    logOutput('Selected screen: ' + randomScreenName);
-    executePluginMethod('screen', [randomScreenName], 'Screen success');
+    logOutput('Selected screen: ' + screenName);
+    executePluginMethod('screen', [screenName], 'Screen success');
 }
 
 function callTrack() {
-    const events = [
-        { name: 'button_clicked', properties: { button_name: 'track_button', timestamp: new Date().toISOString(), user_action: 'manual_trigger' }},
-        { name: 'page_viewed', properties: { page_name: 'dashboard', timestamp: new Date().toISOString(), duration: Math.floor(Math.random() * 120) + 30 }},
-        { name: 'feature_used', properties: { feature_name: 'export_data', timestamp: new Date().toISOString(), success: true, file_type: 'csv' }}
-    ];
+    const eventName = inputValue('eventNameInput', 'button_clicked');
+    const properties = { timestamp: new Date().toISOString(), user_action: 'manual_trigger' };
     
-    const randomEvent = events[Math.floor(Math.random() * events.length)];
-    logOutput('Selected event: ' + randomEvent.name);
-    executePluginMethod('track', [randomEvent.name, randomEvent.properties], 'Track success');
+    logOutput('Track event: ' + eventName);
+    executePluginMethod('track', [eventName, properties], 'Track success');
 }
 
 function callTriggerExperience() {
