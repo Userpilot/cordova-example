@@ -300,16 +300,16 @@ function setupConfigControls() {
     });
 
     bindClick('redactBtn', function () {
-        if (plugin && plugin.redactText) {
-            plugin.redactText('#redactTarget');
-            logOutput('redactText applied to #redactTarget (captured text now masked)');
+        if (plugin && plugin.userpilotRedactText) {
+            plugin.userpilotRedactText('#redactTarget');
+            logOutput('userpilotRedactText applied to #redactTarget (captured text now masked)');
         }
     });
 
     bindClick('ignoreBtn', function () {
-        if (plugin && plugin.ignoreInteractions) {
-            plugin.ignoreInteractions('#ignoreTarget');
-            logOutput('ignoreInteractions applied to #ignoreTarget (taps no longer captured)');
+        if (plugin && plugin.userpilotIgnoreInteractions) {
+            plugin.userpilotIgnoreInteractions('#ignoreTarget');
+            logOutput('userpilotIgnoreInteractions applied to #ignoreTarget (taps no longer captured)');
         }
     });
 }
