@@ -182,7 +182,7 @@ If you see "ClassNotFoundException":
 3. Rebuild: `cordova build android`
 
 ### Build errors
-- **Android**: Ensure `android-compileSdkVersion` is 35+ in `config.xml`
+- **Android**: Ensure `android-minSdkVersion` is 23+, `android-compileSdkVersion` is 36+, and `AndroidGradlePluginVersion` is 8.9.1+ in `config.xml`
 - **iOS**: Ensure deployment target is 13.0+ in `config.xml`
 
 ## Next Steps
@@ -199,4 +199,4 @@ If you see "ClassNotFoundException":
 
 - 📚 [Documentation](https://docs.userpilot.com)
 - 💬 [Support](dev@userpilot.com)
-- 🌐 [Userpilot Dashboard](https://run.userpilot.io) 
+- 🌐 [Userpilot Dashboard](https://run.userpilot.io)
