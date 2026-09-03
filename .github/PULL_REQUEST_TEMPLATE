@@ -1,0 +1,98 @@
+<!-- Thanks for taking the time to create this Pull Request ❤️ -->
+
+## 🚀 Description
+
+<!--
+Describe the change and its behavior in detail.
+This repo is the Cordova demo app and the plugin's verification harness — say
+which screen or control changed, and what it now exercises.
+-->
+
+## 📄 Motivation and Context
+
+<!--
+Why is this change required, and what problem does it solve?
+Link related issues or tickets (for example: Closes #123, Refs NXTAPP-1234).
+If this mirrors a change in cordova-plugin, link that PR.
+-->
+
+## 📦 Scope
+
+<!-- Select all areas affected by this PR. -->
+
+- [ ] A demo screen or control (`www/`)
+- [ ] Plugin usage — an API call, a config option, a callback
+- [ ] Autocapture playground markup / attributes
+- [ ] `config.xml` (app id, plugin list, platform settings, URL scheme)
+- [ ] `package.json` (plugin version, Cordova platform versions)
+- [ ] Documentation only (`README.md`)
+
+## 🔗 Plugin parity
+
+<!--
+This app exists to exercise `cordova-plugin`. A plugin API change that isn't
+demonstrated here is a change nobody verified end to end.
+-->
+
+- [ ] No plugin API involved
+- [ ] Mirrors a `cordova-plugin` change — link:
+- [ ] The pinned plugin version in `package.json` / `config.xml` matches what's being tested
+- [ ] Every plugin API used here actually exists in that version
+- [ ] `exec` action names and positional argument order match the plugin's `plugin.xml`
+- [ ] New API is reachable from a visible control, not just added to a file
+
+## 🧪 How Has This Been Tested?
+
+<!--
+There is no unit-test suite here — the app IS the test. State what you ran and
+what you saw, not what you expect.
+-->
+
+- [ ] `cordova prepare`
+- [ ] `cordova build android`
+- [ ] `cordova build ios`
+- [ ] Ran on an Android device/emulator and exercised the changed control
+- [ ] Ran on an iOS device/simulator and exercised the changed control
+- [ ] Verified the resulting events/experiences in the Userpilot dashboard
+- [ ] Verified autocapture payloads (screen name, element label) are what the
+      dashboard rules expect
+- [ ] Checked the JS console for errors and unresolved promises
+
+<!--
+Environment details:
+- Plugin version:
+- Cordova CLI / platform versions:
+- Device or simulator, OS version:
+-->
+
+## 🧩 Type of Change
+
+- [ ] New or extended demo control
+- [ ] Bug fix in the demo app
+- [ ] Refactor (no intended behavior change)
+- [ ] Plugin version bump
+- [ ] Cordova platform / config change
+- [ ] Documentation update
+
+## 🔐 Privacy
+
+- [ ] No real Userpilot token committed — placeholders only
+- [ ] No real user data, email, or company name in demo payloads
+- [ ] Sensitive-looking demo fields exercise the plugin's redaction markers rather
+      than leaking values
+- [ ] No token, user id, or captured text written to the console and left in
+
+## 📚 Documentation
+
+- [ ] `README.md` updated if the setup steps, the token placeholder, or the
+      control list changed
+- [ ] A new control is described where a reader would look for it
+- [ ] `AGENTS.md` still describes reality
+
+## ✅ Checklist
+
+- [ ] My change follows the repository's conventions (`AGENTS.md`, `.cursor/rules/`)
+- [ ] Every changed line traces to the request — no drive-by refactors
+- [ ] No build output committed (`platforms/`, `plugins/`, `node_modules/`)
+- [ ] I did not work around a plugin bug here — it's reported/fixed in `cordova-plugin`
+- [ ] I ran the app on at least one platform and confirmed the behavior myself
