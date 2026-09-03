@@ -29,7 +29,8 @@
     "cordova-android": "^14.0.1",
     "cordova-ios": "^8.1.0",
     "cordova-plugin-customurlscheme": "^5.0.2",
-    "cordova-plugin-deeplinks": "^1.1.1"
+    "cordova-plugin-deeplinks": "^1.1.1",
+    "shelljs": "^0.10.0"
   },
   "cordova": {
     "platforms": [
