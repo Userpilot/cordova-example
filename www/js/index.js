@@ -299,18 +299,62 @@ function setupConfigControls() {
         }
     });
 
+    // Both helpers take the marker value as their second argument. Markers are
+    // resolved nearest-first, so applying one to a nested element overrides the
+    // enclosing subtree rather than being swallowed by it.
+    function applyIgnore(selector, ignore) {
+        if (!plugin || !plugin.userpilotIgnoreInteractions) return;
+        plugin.userpilotIgnoreInteractions(selector, ignore);
+        logOutput('userpilotIgnoreInteractions(\'' + selector + '\', ' + ignore + ')');
+    }
+
+    function applyRedact(selector, redact) {
+        if (!plugin || !plugin.userpilotRedactText) return;
+        plugin.userpilotRedactText(selector, redact);
+        logOutput('userpilotRedactText(\'' + selector + '\', ' + redact + ')');
+    }
+
     bindClick('redactBtn', function () {
-        if (plugin && plugin.userpilotRedactText) {
-            plugin.userpilotRedactText('#redactTarget');
-            logOutput('userpilotRedactText applied to #redactTarget (captured text now masked)');
-        }
+        applyRedact('#redactTarget', true);
+    });
+
+    bindClick('unredactBtn', function () {
+        applyRedact('#redactTarget', false);
     });
 
     bindClick('ignoreBtn', function () {
-        if (plugin && plugin.userpilotIgnoreInteractions) {
-            plugin.userpilotIgnoreInteractions('#ignoreTarget');
-            logOutput('userpilotIgnoreInteractions applied to #ignoreTarget (taps no longer captured)');
-        }
+        applyIgnore('#ignoreTarget', true);
+    });
+
+    bindClick('captureBtn', function () {
+        applyIgnore('#ignoreTarget', false);
+    });
+
+    // Outer ignored, inner explicitly not: Button 1 stops firing, Button 2 keeps
+    // firing because the inner marker is the closest one to it.
+    bindClick('nestedIgnoreApplyBtn', function () {
+        applyIgnore('#nestedIgnoreOuter', true);
+        applyIgnore('#nestedIgnoreInner', false);
+        logOutput('Tap both buttons: only "Button 2" should reach SDK Callbacks');
+    });
+
+    bindClick('nestedIgnoreResetBtn', function () {
+        applyIgnore('#nestedIgnoreOuter', false);
+        applyIgnore('#nestedIgnoreInner', false);
+        logOutput('Nested ignore cleared: both buttons are captured again');
+    });
+
+    // Same shape for text. Both buttons still fire; only the outer one is masked.
+    bindClick('nestedRedactApplyBtn', function () {
+        applyRedact('#nestedRedactOuter', true);
+        applyRedact('#nestedRedactInner', false);
+        logOutput('Tap both buttons: target_text should be "****" then "Visible Label"');
+    });
+
+    bindClick('nestedRedactResetBtn', function () {
+        applyRedact('#nestedRedactOuter', false);
+        applyRedact('#nestedRedactInner', false);
+        logOutput('Nested redact cleared: both labels are sent verbatim');
     });
 }
 
