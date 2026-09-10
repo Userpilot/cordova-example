@@ -47,6 +47,11 @@
                         <p class="home-subtitle">Cordova Plugin Sample</p>
                     </div>
                     <div class="home-options">
+                        <a href="#/configuration" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Configuration</span>
+                            <span class="home-card-desc">App token &amp; SDK setup options</span>
+                        </a>
                         <a href="#/sdk" class="home-card">
                             <span class="home-card-icon">&#9881;</span>
                             <span class="home-card-title">SDK Methods</span>
@@ -77,6 +82,33 @@
                             <span class="home-card-title">Auto-Capture Config</span>
                             <span class="home-card-desc">Stop/resume, redact text, ignore interactions</span>
                         </a>
+                    </div>
+                </section>
+
+                <!-- ============ CONFIGURATION (SDK setup) ============ -->
+                <section class="view" data-view="/configuration" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Configuration</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>App Token</h3>
+                        <label class="ac-field">Token
+                            <input type="text" id="configAppToken" placeholder="Enter your app token" autocomplete="off" autocapitalize="off" autocorrect="off" />
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>SDK Options</h3>
+                        <div id="configFlags" class="config-flags"></div>
+                    </div>
+
+                    <div class="section">
+                        <p class="hint config-note">Changes are applied on the next launch. The app will restart after saving.</p>
+                        <div class="button-grid">
+                            <button id="configSaveRestartBtn" class="plugin-btn">Save &amp; Restart</button>
+                        </div>
                     </div>
                 </section>
 

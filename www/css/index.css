@@ -119,6 +119,52 @@ h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.04em; color: 
 .home-card-title { font-size: 17px; font-weight: 600; color: #333333; }
 .home-card-desc { font-size: 13px; color: #777777; margin-top: 4px; }
 
+/* ===================== Configuration ===================== */
+.config-flags {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.config-flag-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.config-flag-row:last-child { border-bottom: none; padding-bottom: 0; }
+.config-flag-row:first-child { padding-top: 0; }
+
+.config-flag-copy { flex: 1; min-width: 0; }
+.config-flag-title { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 4px; }
+.config-flag-desc { font-size: 12px; color: #777; line-height: 1.35; }
+
+.config-toggle {
+    width: 44px;
+    height: 28px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: #4B946A;
+}
+
+.config-number-input {
+    width: 72px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    padding: 8px 10px;
+    font-size: 14px;
+    text-align: end;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    background: #ffffff;
+    -webkit-user-select: text;
+}
+
+.config-note { text-align: center; }
+
 /* ===================== Views ===================== */
 .view[hidden] { display: none; }
 
@@ -465,6 +511,15 @@ code {
     .home-card-title { color: #FFFFFF; }
     .home-card-desc { color: #AAAAAA; }
     .home-subtitle { color: #AAAAAA; }
+
+    .config-flag-row { border-bottom-color: #3a3a3a; }
+    .config-flag-title { color: #FFFFFF; }
+    .config-flag-desc { color: #AAAAAA; }
+    .config-number-input {
+        background: #1F1F1F;
+        color: #FFFFFF;
+        border-color: #555;
+    }
 
     .section, .output { background: rgba(43, 43, 43, 0.92); }
 

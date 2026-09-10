@@ -25,6 +25,161 @@ document.addEventListener('deviceready', onDeviceReady, false);
 var isUserpilotInitialized = false;
 var pendingDeepLinkUrl = null;
 
+var DEFAULT_APP_TOKEN = 'NX-b7b285fd';
+var RESTART_DELAY_MS = 1000;
+
+/**
+ * localStorage-backed persistence for the sample app configuration.
+ * Values are read at SDK init and written from the Configuration screen.
+ */
+var StorageManager = {
+    APP_TOKEN: 'APP_TOKEN',
+
+    getString: function (key, defaultValue) {
+        if (defaultValue === undefined) defaultValue = '';
+        var value = localStorage.getItem(key);
+        return value !== null ? value : defaultValue;
+    },
+
+    setString: function (key, value) {
+        localStorage.setItem(key, value);
+    },
+
+    getBoolean: function (key, defaultValue) {
+        if (defaultValue === undefined) defaultValue = false;
+        var value = localStorage.getItem(key);
+        if (value === null) return defaultValue;
+        return value === 'true';
+    },
+
+    setBoolean: function (key, value) {
+        localStorage.setItem(key, String(value));
+    },
+
+    getNumber: function (key, defaultValue) {
+        if (defaultValue === undefined) defaultValue = 0;
+        var value = localStorage.getItem(key);
+        if (value === null) return defaultValue;
+        var parsed = Number(value);
+        return isFinite(parsed) ? parsed : defaultValue;
+    },
+
+    setNumber: function (key, value) {
+        localStorage.setItem(key, String(value));
+    }
+};
+
+/**
+ * Bridge config options exposed on the Configuration screen.
+ * Maps to Cordova plugin setup options (excludes native-only flags).
+ */
+var CONFIG_FLAGS = [
+    {
+        key: 'CONFIG_LOGGING',
+        title: 'logging',
+        description:
+            'Enables verbose SDK logs in the console. Turn on while integrating to debug Userpilot behaviour; keep it off in production.',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_USE_IN_APP_BROWSER',
+        title: 'useInAppBrowser',
+        description:
+            'Opens experience/URL links inside an in-app browser (Custom Tabs / SFSafariViewController) instead of an external browser.',
+        defaultValue: false,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_DISABLE_REQUEST_PUSH_NOTIFICATIONS_PERMISSION',
+        title: 'disableRequestPushNotificationsPermission',
+        description:
+            'Prevents the SDK from requesting the push notifications permission. Enable it when your app manages the permission itself.',
+        defaultValue: false,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_ENABLE_SCREEN_AUTO_CAPTURE',
+        title: 'enableScreenAutoCapture',
+        description:
+            'Automatically tracks route/page changes in the Cordova app without manual screen() calls.',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_ENABLE_INTERACTION_AUTO_CAPTURE',
+        title: 'enableInteractionAutoCapture',
+        description:
+            'Automatically captures user interactions (taps and value changes) as events.',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_ENABLE_INTERACTION_TEXT_CAPTURE',
+        title: 'enableInteractionTextCapture',
+        description:
+            'Includes the visible text/labels of tapped elements in autocapture events. Disable it to avoid capturing PII or sensitive data.',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_ENABLE_INTERACTION_ACCESSIBILITY_LABEL_CAPTURE',
+        title: 'enableInteractionAccessibilityLabelCapture',
+        description:
+            'Includes accessibility labels (aria-label/title) in autocapture events. Use it together with text capture for richer element targeting.',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_ENABLE_INTERACTION_VALUE_CAPTURE',
+        title: 'enableInteractionValueCapture',
+        description:
+            'Captures value payloads for change events (switch state, slider values, selected date/time and list selections).',
+        defaultValue: true,
+        kind: 'boolean'
+    },
+    {
+        key: 'CONFIG_MAX_HIERARCHY_DEPTH',
+        title: 'maxHierarchyDepth',
+        description:
+            'Maximum number of ancestry nodes included in the captured hierarchy path.',
+        defaultValue: 30,
+        kind: 'number'
+    }
+];
+
+function getFlagValue(flag) {
+    if (flag.kind === 'number') {
+        return StorageManager.getNumber(flag.key, flag.defaultValue);
+    }
+    return StorageManager.getBoolean(flag.key, flag.defaultValue);
+}
+
+function saveFlagValue(flag, value) {
+    if (flag.kind === 'number') {
+        StorageManager.setNumber(flag.key, value);
+    } else {
+        StorageManager.setBoolean(flag.key, value);
+    }
+}
+
+function getStoredAppToken() {
+    return StorageManager.getString(StorageManager.APP_TOKEN, '');
+}
+
+function getAppTokenForSetup() {
+    var token = getStoredAppToken().trim();
+    return token || DEFAULT_APP_TOKEN;
+}
+
+function buildSetupOptionsFromStorage() {
+    var options = {};
+    CONFIG_FLAGS.forEach(function (flag) {
+        options[flag.title] = getFlagValue(flag);
+    });
+    return options;
+}
+
 // Process deep link URL through Userpilot plugin
 function processDeepLink(url) {
     if (!url) return;
@@ -112,9 +267,15 @@ function onDeviceReady() {
     setupEventListeners();
     setupViewRouter();
     setupDemoInteractions();
-    
+    setupConfigurationScreen();
+
     // Auto-initialize Userpilot SDK, then setup deep link handler
     initializeUserpilot();
+
+    // First launch (or cleared token): open Configuration so the token can be set.
+    if (!getStoredAppToken().trim()) {
+        location.hash = '#/configuration';
+    }
 }
 
 // Hash router for the app views (home / sdk / components). Switching the hash
@@ -126,6 +287,7 @@ function setupViewRouter() {
 
     var titles = {
         '/home': 'Userpilot',
+        '/configuration': 'Configuration',
         '/sdk': 'SDK Methods',
         '/components': 'Components',
         '/navigation': 'Navigation',
@@ -374,37 +536,141 @@ function closeAllOverlays() {
     if (drawer) drawer.classList.remove('open');
 }
 
-// Auto-initialize Userpilot SDK on app start
+function exitAppAfterConfigSave() {
+    var platform = (typeof cordova !== 'undefined' && cordova.platformId) || '';
+
+    if (navigator.app && typeof navigator.app.exitApp === 'function') {
+        navigator.app.exitApp();
+        return;
+    }
+
+    // Some iOS builds expose exit via cordova.exec; try before asking the user.
+    if (typeof cordova !== 'undefined' && cordova.exec) {
+        try {
+            cordova.exec(null, null, 'Exit', 'exitApp', []);
+            return;
+        } catch (e) {
+            // Fall through to alert.
+        }
+    }
+
+    if (platform === 'ios') {
+        alert('Configuration saved. Please force-quit and relaunch the app for changes to take effect.');
+        return;
+    }
+
+    // Browser / unsupported platform fallback.
+    window.location.reload();
+}
+
+function setupConfigurationScreen() {
+    var tokenInput = document.getElementById('configAppToken');
+    var flagsContainer = document.getElementById('configFlags');
+    if (!tokenInput || !flagsContainer) return;
+
+    tokenInput.value = getStoredAppToken() || DEFAULT_APP_TOKEN;
+
+    flagsContainer.innerHTML = '';
+    CONFIG_FLAGS.forEach(function (flag) {
+        var row = document.createElement('div');
+        row.className = 'config-flag-row';
+
+        var labelWrap = document.createElement('div');
+        labelWrap.className = 'config-flag-copy';
+
+        var title = document.createElement('div');
+        title.className = 'config-flag-title';
+        title.textContent = flag.title;
+
+        var desc = document.createElement('div');
+        desc.className = 'config-flag-desc';
+        desc.textContent = flag.description;
+
+        labelWrap.appendChild(title);
+        labelWrap.appendChild(desc);
+        row.appendChild(labelWrap);
+
+        if (flag.kind === 'number') {
+            var numberInput = document.createElement('input');
+            numberInput.type = 'number';
+            numberInput.min = '1';
+            numberInput.inputMode = 'numeric';
+            numberInput.className = 'config-number-input';
+            numberInput.id = 'flag_' + flag.key;
+            numberInput.value = String(getFlagValue(flag));
+            row.appendChild(numberInput);
+        } else {
+            var toggle = document.createElement('input');
+            toggle.type = 'checkbox';
+            toggle.className = 'config-toggle';
+            toggle.id = 'flag_' + flag.key;
+            toggle.checked = Boolean(getFlagValue(flag));
+            toggle.setAttribute('role', 'switch');
+            toggle.setAttribute('aria-label', flag.title);
+            row.appendChild(toggle);
+        }
+
+        flagsContainer.appendChild(row);
+    });
+
+    bindClick('configSaveRestartBtn', onSaveAndRestartClicked);
+}
+
+function onSaveAndRestartClicked() {
+    var tokenInput = document.getElementById('configAppToken');
+    var token = tokenInput && tokenInput.value ? tokenInput.value.trim() : '';
+    if (!token) {
+        alert('Please enter an app token');
+        return;
+    }
+
+    StorageManager.setString(StorageManager.APP_TOKEN, token);
+
+    CONFIG_FLAGS.forEach(function (flag) {
+        var control = document.getElementById('flag_' + flag.key);
+        if (!control) return;
+        if (flag.kind === 'number') {
+            var parsed = Number(control.value);
+            saveFlagValue(
+                flag,
+                isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : flag.defaultValue
+            );
+        } else {
+            saveFlagValue(flag, Boolean(control.checked));
+        }
+    });
+
+    logOutput('Config saved. Restarting…');
+    var saveBtn = document.getElementById('configSaveRestartBtn');
+    if (saveBtn) saveBtn.disabled = true;
+
+    setTimeout(exitAppAfterConfigSave, RESTART_DELAY_MS);
+}
+
+// Auto-initialize Userpilot SDK on app start from persisted Configuration values.
 function initializeUserpilot() {
-    const token = 'NX-b7b285fd';
-    const options = {
-        logging: true,
-        useInAppBrowser: false,
-        disableRequestPushNotificationsPermission: false,
-        // Auto-capture: track screens (route changes) and interactions automatically.
-        enableScreenAutoCapture: true,
-        enableInteractionAutoCapture: true,
-        enableInteractionValueCapture: true
-    };
-    
+    var token = getAppTokenForSetup();
+    var options = buildSetupOptionsFromStorage();
+
     logOutput('Initializing Userpilot SDK...');
-    
-    const plugin = getUserpilotPlugin();
+    logOutput('Setup options: ' + JSON.stringify(options));
+
+    var plugin = getUserpilotPlugin();
     if (!plugin) {
         logOutput('Userpilot plugin not found.');
         return;
     }
-    
+
     plugin.setup(
         token,
         options,
-        function(result) {
+        function (result) {
             logOutput('Userpilot SDK initialized successfully');
             isUserpilotInitialized = true;
-            
+
             // Setup deep link handler after SDK is initialized
             setupDeepLinkHandler();
-            
+
             // Process any pending deep link that arrived before initialization
             if (pendingDeepLinkUrl) {
                 logOutput('Processing pending deep link: ' + pendingDeepLinkUrl);
@@ -412,7 +678,7 @@ function initializeUserpilot() {
                 pendingDeepLinkUrl = null;
             }
         },
-        function(error) {
+        function (error) {
             logOutput('Userpilot SDK setup error: ' + JSON.stringify(error));
         }
     );
@@ -466,16 +732,9 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    const token = 'NX-b7b285fd';
-    const options = {
-        logging: true, // Enable/disable SDK logging
-        useInAppBrowser: false, // Enable/disable in-app browser for links - Works for Android
-        disableRequestPushNotificationsPermission: false, // Disable request push notifications permission by SDK
-        enableScreenAutoCapture: true, // Auto-capture screen/route changes
-        enableInteractionAutoCapture: true, // Auto-capture taps and other interactions
-        enableInteractionValueCapture: true // Include value payloads (is_checked, selected_value, ...)
-    };
-        
+    var token = getAppTokenForSetup();
+    var options = buildSetupOptionsFromStorage();
+
     logOutput('Setup options: ' + JSON.stringify(options));
     executePluginMethod('setup', [token, options], 'Setup success');
 }
