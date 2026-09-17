@@ -268,6 +268,7 @@ function onDeviceReady() {
     setupViewRouter();
     setupDemoInteractions();
     setupConfigurationScreen();
+    setupStressScreens();
 
     // Auto-initialize Userpilot SDK, then setup deep link handler
     initializeUserpilot();
@@ -293,7 +294,9 @@ function setupViewRouter() {
         '/navigation': 'Navigation',
         '/menus': 'Menus',
         '/list': 'List',
-        '/config': 'Auto-Capture Config'
+        '/config': 'Auto-Capture Config',
+        '/stress-static': 'Auto-Capture Stress (Static)',
+        '/stress-feed': 'Auto-Capture Stress (Feed)'
     };
 
     function render() {

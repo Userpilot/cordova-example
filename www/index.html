@@ -20,12 +20,16 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+        <!-- picsum.photos is in img-src for the stress screens' optional photos
+             toggle only. Photos are off by default there; without this the
+             toggle would be silently blocked rather than merely unhelpful. -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content: https://picsum.photos https://fastly.picsum.photos;">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
         <meta name="color-scheme" content="light dark">
         <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/stress.css">
         <title>Userpilot Plugin Sample</title>
     </head>
     <body>
@@ -81,6 +85,16 @@
                             <span class="home-card-icon">&#9858;</span>
                             <span class="home-card-title">Auto-Capture Config</span>
                             <span class="home-card-desc">Stop/resume, redact text, ignore interactions</span>
+                        </a>
+                        <a href="#/stress-static" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Auto-Capture Stress (Static)</span>
+                            <span class="home-card-desc">Every card in the DOM at once &mdash; the worst case</span>
+                        </a>
+                        <a href="#/stress-feed" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Auto-Capture Stress (Feed)</span>
+                            <span class="home-card-desc">A feed that grows as you scroll</span>
                         </a>
                     </div>
                 </section>
@@ -449,6 +463,35 @@
                     </div>
                 </section>
 
+                <!-- ============ AUTO-CAPTURE STRESS ============
+                     Both screens are shells: the cards, the controls and the
+                     stats bar are all built in js/stress.js, because a few
+                     hundred rich cards is not markup anyone should maintain by
+                     hand — and because the build cost itself is one of the
+                     things being measured. -->
+                <section class="view" data-view="/stress-static" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Stress: Static</h2>
+                    </div>
+                    <div id="stressStaticControls" class="heavy-actions"></div>
+                    <p id="stressStaticNote" class="hint heavy-note"></p>
+                    <div id="stressStaticCards"></div>
+                    <div id="stressStaticStats" class="heavy-stats-bar"></div>
+                </section>
+
+                <section class="view" data-view="/stress-feed" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Stress: Feed</h2>
+                    </div>
+                    <div id="stressFeedControls" class="heavy-actions"></div>
+                    <p id="stressFeedNote" class="hint heavy-note"></p>
+                    <div id="stressFeedCards"></div>
+                    <div id="stressFeedSentinel" class="heavy-sentinel"></div>
+                    <div id="stressFeedStats" class="heavy-stats-bar"></div>
+                </section>
+
                 <!-- Drawer overlay + panel (shared) -->
                 <div id="drawerOverlay" class="drawer-overlay" hidden></div>
                 <aside id="drawer" class="drawer" role="menu" aria-label="Navigation drawer" hidden>
@@ -473,6 +516,7 @@
             </div>
         </div>
         <script src="cordova.js"></script>
+        <script src="js/stress.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>
