@@ -291,6 +291,7 @@ function setupViewRouter() {
         '/configuration': 'Configuration',
         '/sdk': 'SDK Methods',
         '/autocapture': 'Auto-Capture',
+        '/stress': 'Stress Screens',
         '/components': 'Components',
         '/navigation': 'Navigation',
         '/menus': 'Menus',
