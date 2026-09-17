@@ -279,7 +279,7 @@ function onDeviceReady() {
     }
 }
 
-// Hash router for the app views (home / sdk / components). Switching the hash
+// Hash router for the app views (home / sdk / autocapture / demos). Switching the hash
 // shows the matching view and updates document.title; the plugin's screen
 // auto-capture reports each hash route (e.g. "/sdk") as a distinct screen.
 function setupViewRouter() {
@@ -290,6 +290,7 @@ function setupViewRouter() {
         '/home': 'Userpilot',
         '/configuration': 'Configuration',
         '/sdk': 'SDK Methods',
+        '/autocapture': 'Auto-Capture',
         '/components': 'Components',
         '/navigation': 'Navigation',
         '/menus': 'Menus',
