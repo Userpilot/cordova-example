@@ -32,3 +32,6 @@ node_modules/
 .cursor/
 AGENTS.md
 CLAUDE.md
+
+# Locally generated agent plans — not project documentation
+plan/
