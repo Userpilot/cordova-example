@@ -8,6 +8,29 @@ This repo contains an example Cordova app that has everything you need to get st
 
 For information about how to get started with Cordova SDK, please check this [Guide](https://docs.userpilot.com/developer/installation/mobile/mobile-cordova).
 
+## Testing this app as-is
+
+The native projects under `platforms/` are committed, so a clone is ready to build. Replace the `APP_TOKEN` placeholder with your account token in these four places — the URL scheme is `userpilot-<token>`, and deep links do not reach the app if it does not match:
+
+| File | What to replace |
+| ---- | --------------- |
+| `www/js/index.js` | `DEFAULT_APP_TOKEN` (the token alone, e.g. `NX-12345678`) |
+| `config.xml` | the `<universal-links>` host `scheme` |
+| `package.json` | both `URL_SCHEME` values under `cordova.plugins` |
+| `ul_web_hooks/android/android_web_hook.html` | the `android-app://` link |
+
+Then re-add the two URL plugins so the natives pick the new scheme up, and build:
+
+```bash
+npx cordova plugin remove cordova-plugin-deeplinks cordova-plugin-customurlscheme
+npx cordova prepare
+npm run build:ios      # or: npm run build:android
+```
+
+You can also set the token at runtime from the app's **Configuration** screen, but the URL scheme still has to be edited before a QR code can open the app.
+
+> The plugin currently pins the native SDKs at **1.4.0**. Until that version is published, build the SDK locally (`./gradlew :userpilot:publishLocal` for Android, a `:path` pod for iOS) or point `src/android/UserpilotPlugin.gradle` and the `<podspec>` in the plugin at 1.3.0.
+
 ## How to get started?
 
 ### Create Userpilot Account

@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.userpilot.cordovasample" version="1.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="CDVWebViewEngine">
+        <param name="ios-package" value="CDVWebViewEngine" />
+    </feature>
+    <feature name="LaunchScreen">
+        <param name="ios-package" value="CDVLaunchScreen" />
+    </feature>
+    <feature name="LocalStorage">
+        <param name="ios-package" value="CDVLocalStorage" />
+    </feature>
+    <feature name="Console">
+        <param name="ios-package" value="CDVLogger" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="HandleOpenUrl">
+        <param name="ios-package" value="CDVHandleOpenURL" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="IntentAndNavigationFilter">
+        <param name="ios-package" value="CDVIntentAndNavigationFilter" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="GestureHandler">
+        <param name="ios-package" value="CDVGestureHandler" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="StatusBarInternal">
+        <param name="ios-package" value="CDVStatusBarInternal" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="UniversalLinks">
+        <param name="ios-package" value="CULPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="UserpilotCordovaPlugin">
+        <param name="ios-package" value="UserpilotCordovaPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <name>UserpilotSample</name>
+    <description>Userpilot Sample App</description>
+    <author email="dev@userpilot.com" href="https://userpilot.com">
+        Userpilot
+    </author>
+    <content src="index.html" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <universal-links>
+        <host event="deeplink" name="sdk" scheme="userpilot-APP_TOKEN" />
+    </universal-links>
+    <config-file parent="CFBundleVersion" target="*-Info.plist">
+        <string>1</string>
+    </config-file>
+    <config-file parent="IPHONEOS_DEPLOYMENT_TARGET" target="build.xcconfig">
+        <string>13.0</string>
+    </config-file>
+    <config-file parent="SWIFT_VERSION" target="build.xcconfig">
+        <string>5.0</string>
+    </config-file>
+    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="DisallowOverscroll" value="false" />
+    <preference name="EnableViewportScale" value="false" />
+    <preference name="MediaPermissionGrantType" value="grantIfSameHostElsePrompt" />
+    <preference name="MediaTypesRequiringUserActionForPlayback" value="none" />
+    <preference name="SuppressesIncrementalRendering" value="false" />
+    <preference name="SuppressesLongPressGesture" value="false" />
+    <preference name="Suppresses3DTouchGesture" value="false" />
+    <preference name="deployment-target" value="13.0" />
+    <preference name="target-device" value="universal" />
+    <preference name="SwiftVersion" value="5.0" />
+    <preference name="WKWebViewOnly" value="true" />
+    <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+</widget>

@@ -13,11 +13,12 @@
     "build": "cordova build",
     "run:android": "cordova run android",
     "run:ios": "cordova run ios",
+    "run:ios:device": "cordova build ios --device && node scripts/deploy-ios-device.js",
     "build:android": "cordova build android",
     "build:ios": "cordova build ios",
-    "remove:userpilot": "cordova plugin remove @userpilot/cordova",
-    "add:userpilot": "cordova plugin add @userpilot/cordova",
-    "add:userpilot:local": "cordova plugin add ../cordova-plugin"
+    "remove:userpilot": "cordova plugin remove @userpilot/cordova --variable DEPLOYMENT-TARGET=13.0",
+    "add:userpilot": "cordova plugin add @userpilot/cordova --variable DEPLOYMENT-TARGET=13.0",
+    "add:userpilot:local": "cordova plugin add ../cordova-plugin --variable DEPLOYMENT-TARGET=13.0"
   },
   "keywords": [
     "ecosystem:cordova, userpilot"
@@ -34,16 +35,17 @@
   },
   "cordova": {
     "platforms": [
-      "android"
+      "android",
+      "ios"
     ],
     "plugins": {
       "cordova-plugin-deeplinks": {
-        "URL_SCHEME": "userpilot-nx-b7b285fd",
+        "URL_SCHEME": "userpilot-APP_TOKEN",
         "DEEPLINK_HOST": "sdk",
         "ANDROID_PATH_PREFIX": "/"
       },
       "cordova-plugin-customurlscheme": {
-        "URL_SCHEME": "userpilot-nx-b7b285fd"
+        "URL_SCHEME": "userpilot-APP_TOKEN"
       },
       "@userpilot/cordova": {
         "DEPLOYMENT-TARGET": "13.0"

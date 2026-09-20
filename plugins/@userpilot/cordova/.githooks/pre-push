@@ -1,0 +1,13 @@
+# Read the version from package.json
+package_version=$(cat package.json | grep -m 1 "\"version\"" | awk -F: '{gsub(/[", ]/, "", $2); print $2}')
+
+# Read the version from plugin.xml
+plugin_version=$(cat plugin.xml | tail -n +2 | grep -o 'version="[^"]*"' | head -n 1 | sed 's/version="//' | sed 's/"//')
+
+# Compare the versions
+if [ "$package_version" != "$plugin_version" ]; then
+    echo "Error: Version mismatch!"
+    echo "Package.json version: $package_version"
+    echo "Plugin.xml version: $plugin_version"
+    exit 1
+fi

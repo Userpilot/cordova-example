@@ -1,0 +1,172 @@
+<!-- Thanks for taking the time to create this Pull Request ❤️ -->
+
+## 🚀 Description
+
+<!--
+Describe the change and its behavior in detail.
+Mention the affected sides (www/, plugin.xml, Kotlin, Swift), the action names,
+the positional arguments, or captured payloads where relevant.
+-->
+
+## 📄 Motivation and Context
+
+<!--
+Why is this change required, and what problem does it solve?
+Link related issues or tickets (for example: Closes #123, Refs NXTAPP-1234).
+-->
+
+## 📦 Scope
+
+- [ ] Public JavaScript API (`www/userpilot.js`)
+- [ ] Autocapture engine (`www/autocapture/`)
+- [ ] `plugin.xml` wiring (`<js-module>` entries)
+- [ ] `plugin.xml` config (permissions, entitlements, engines, deployment-target)
+- [ ] Android plugin (Kotlin / `UserpilotPlugin.gradle`)
+- [ ] iOS plugin (Swift / bridging header / podspec block)
+- [ ] Pinned native SDK versions
+- [ ] Documentation only
+
+## 🔌 plugin.xml wiring
+
+<!--
+🔴 Cordova has no bundler. A www/ file without a <js-module> entry DOES NOT EXIST
+at runtime — no build error, no lint error, no test failure (the tests require()
+from disk). Paste the check:
+
+  for f in $(find www -name '*.js'); do
+    n=$(grep -c "src=\"$f\"" plugin.xml)
+    [ "$n" -eq 2 ] || echo "MISSING or SINGLE-PLATFORM: $f ($n entries)"
+  done
+-->
+
+- [ ] Every new `www/` file has a `<js-module>` entry in the **android** platform block
+- [ ] Every new `www/` file has a `<js-module>` entry in the **ios** platform block
+- [ ] Every `cordova.require` name matches a `<js-module name>`
+- [ ] The wiring check above produces **no output**
+- [ ] Not applicable — no `www/` files added, moved, or renamed
+
+## 🌉 Action parity
+
+- [ ] `www/userpilot.js` function added/updated
+- [ ] Kotlin `when(action)` branch added/updated
+- [ ] Swift `@objc func` added/updated, **with the same name as the action**
+- [ ] Every native path sends **exactly one** result
+- [ ] `registerCallbacks` still sets `keepCallback = true` (if touched)
+- [ ] Android's `else -> return false` fallthrough intact
+- [ ] iOS checks `command.arguments.count` before indexing
+- [ ] Capability confirmed in **both** pinned native SDKs, or the other platform sends an
+      explicit error (not a missing branch)
+- [ ] Not applicable — no action change
+
+## 🔢 Positional arguments
+
+<!--
+🔴 There is no options object and no type system. Both natives index by position.
+A reorder is a SILENT misassignment — no error, just wrong data in the customer's
+dashboard.
+-->
+
+- [ ] No change to any existing action's argument list
+- [ ] New arguments were **appended**, never inserted or reordered
+- [ ] Argument order is identical on both natives
+- [ ] Argument order is documented in the README
+
+<!-- If an existing order changed, state the before and after here and explain why: -->
+
+## 🧪 How Has This Been Tested?
+
+### Automated
+
+- [ ] Added or updated tests
+- [ ] Tests assert the **whole args array** with `deepStrictEqual`
+- [ ] Negative case covered (validation sends nothing over `exec`)
+- [ ] Redaction covered, **including the nesting case** (`false` on a descendant)
+- [ ] `npm test`
+
+<!-- `npm test` require()s from disk (so it cannot see plugin.xml) and stubs exec
+     entirely (so it says nothing about either native half). -->
+
+### Example app — the real gate
+
+- [ ] Plugin **removed and re-added** (`npm run remove:userpilot && npm run add:userpilot:local`)
+- [ ] Android built and run
+- [ ] iOS built and run
+- [ ] Exercised: setup, identify, screen, track, experience, deep link, push, autocapture
+- [ ] Not applicable — docs-only change
+
+<!--
+Environment details:
+- cordova-android / cordova-ios version:
+- Platform and OS version:
+- Device or emulator:
+-->
+
+## 🧩 Type of Change
+
+- [ ] Bug fix (non-breaking change that fixes an issue)
+- [ ] New feature (non-breaking change that adds functionality)
+- [ ] Refactor (no intended behavior change)
+- [ ] Breaking change (public JS API — renamed function, changed callback shape)
+- [ ] Breaking change (**positional argument order**)
+- [ ] Breaking change (`plugin.xml` config — permission, entitlement, engines, deployment-target)
+- [ ] Breaking change (captured payload or screen-name semantics)
+- [ ] Native platform change
+- [ ] Native SDK version bump
+- [ ] Documentation update
+- [ ] Test-only change
+
+## 🏠 Host-app impact
+
+<!--
+Anything under plugin.xml's <config-file> is written into the host app's project on
+their next `plugin add`.
+-->
+
+- [ ] No `plugin.xml` config change
+- [ ] New `<uses-permission>` — **appears in their Play Store listing**
+- [ ] Changed `aps-environment` entitlement — changes their push registration
+- [ ] Raised `<engines>` floor or `deployment-target` — drops host apps
+- [ ] Host apps must **remove and re-add the plugin** to pick this up (almost always yes)
+
+## 📊 Captured payload & screen-name impact
+
+- [ ] No payload or screen-name change
+- [ ] New payload field — documented in `docs/AutoCapture.md`
+- [ ] Existing field's semantics changed — **breaking**, migration note below
+- [ ] Screen-name resolution changed — **breaking**, migration note below
+
+<!-- Migration note (old value → new value → what to update): -->
+
+## 🔐 Privacy
+
+- [ ] No new data is read from the host app's DOM
+- [ ] `governance.js` / `redactor.js` asked, not re-derived
+- [ ] Capture gate checked **before** the value is read
+- [ ] Nearest-marker-wins nesting preserved
+- [ ] `input[type=password]`, sensitive-`autocomplete`, and **hidden inputs** excluded
+- [ ] No `outerHTML`, `element.value`, attribute sweep, or event object in payloads
+- [ ] URLs sanitized before reaching a screen name or payload
+- [ ] No token, user id, properties, or captured text reaches a log
+- [ ] No bare `console.*` under `www/autocapture/` (use `logger.js`)
+
+## 📚 Documentation
+
+- [ ] README updated — it is the **only** API reference, and states argument order
+- [ ] README documents any new permission or entitlement
+- [ ] `docs/AutoCapture.md` updated for payload changes
+- [ ] `doc/ObservingSDKCallbacks.md` updated for event changes
+- [ ] Changelog entry, saying host apps must remove and re-add the plugin
+
+## ✅ Checklist
+
+- [ ] My code follows the repository's conventions (`AGENTS.md`, `.cursor/rules/`)
+- [ ] `package.json` and `plugin.xml` versions match (the pre-push hook enforces it)
+- [ ] Public functions validate and call `onFail` — they never throw at the host
+- [ ] Autocapture code cannot throw from a DOM handler (`guarded-run.js` used)
+- [ ] Every `addEventListener` is removed in `stop()` **with the same function reference**
+- [ ] `resume()` is idempotent; a second `setup()` does not double-attach
+- [ ] `event-suppressor.js` still debounces continuous interactions
+- [ ] Conservative syntax only — there is no build step or transpilation
+- [ ] **No dependency added** — there is no bundler to resolve one
+- [ ] I did not reimplement behavior the native SDKs already provide
+- [ ] I ran the wiring check and the relevant automated checks

@@ -1,0 +1,25 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-deeplinks": {
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "userpilot-APP_TOKEN",
+      "ANDROID_SCHEME": " ",
+      "ANDROID_HOST": " ",
+      "ANDROID_PATHPREFIX": "/",
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "@userpilot/cordova": {
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    }
+  },
+  "dependent_plugins": {}
+}

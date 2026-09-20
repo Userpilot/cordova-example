@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <!-- picsum.photos is in img-src for the stress screens' optional photos
+             toggle only. Photos are off by default there; without this the
+             toggle would be silently blocked rather than merely unhelpful. -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content: https://picsum.photos https://fastly.picsum.photos;">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+        <meta name="color-scheme" content="light dark">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/stress.css">
+        <title>Userpilot Plugin Sample</title>
+    </head>
+    <body>
+        <div class="app">
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+
+            <!-- App views. Hidden until deviceready. Navigation is hash-based so
+                 screen auto-capture reports each view as a distinct screen. -->
+            <div id="app-views" style="display: none;">
+
+                <!-- ============ HOME ============ -->
+                <section class="view view-home" data-view="/home">
+                    <div class="home-hero">
+                        <img src="img/logo.png" class="home-logo" alt="Userpilot logo" />
+                        <h1 class="home-title">Userpilot</h1>
+                        <p class="home-subtitle">Cordova Plugin Sample</p>
+                    </div>
+                    <div class="home-options">
+                        <a href="#/configuration" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Configuration</span>
+                            <span class="home-card-desc">App token &amp; SDK setup options</span>
+                        </a>
+                        <a href="#/sdk" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">SDK Methods</span>
+                            <span class="home-card-desc">Setup, identify, track, screen, experiences</span>
+                        </a>
+                        <a href="#/autocapture" class="home-card">
+                            <span class="home-card-icon">&#9783;</span>
+                            <span class="home-card-title">Auto-Capture</span>
+                            <span class="home-card-desc">Components, navigation &amp; privacy demos</span>
+                        </a>
+                        <a href="#/stress" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Stress Screens</span>
+                            <span class="home-card-desc">Static &amp; scrolling feed performance demos</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ============ AUTO-CAPTURE ============ -->
+                <section class="view" data-view="/autocapture" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Auto-Capture</h2>
+                    </div>
+                    <div class="home-options">
+                        <a href="#/components" class="home-card">
+                            <span class="home-card-icon">&#9783;</span>
+                            <span class="home-card-title">Auto-Capture Components</span>
+                            <span class="home-card-desc">Buttons, inputs &amp; toggles to test auto-capture</span>
+                        </a>
+                        <a href="#/navigation" class="home-card">
+                            <span class="home-card-icon">&#9636;</span>
+                            <span class="home-card-title">Navigation</span>
+                            <span class="home-card-desc">Tabs, bottom navigation &amp; drawer</span>
+                        </a>
+                        <a href="#/menus" class="home-card">
+                            <span class="home-card-icon">&#9776;</span>
+                            <span class="home-card-title">Menus</span>
+                            <span class="home-card-desc">Dropdown &amp; context menus</span>
+                        </a>
+                        <a href="#/list" class="home-card">
+                            <span class="home-card-icon">&#9778;</span>
+                            <span class="home-card-title">List</span>
+                            <span class="home-card-desc">List items to test list_item_selected</span>
+                        </a>
+                        <a href="#/config" class="home-card">
+                            <span class="home-card-icon">&#9858;</span>
+                            <span class="home-card-title">Auto-Capture Config</span>
+                            <span class="home-card-desc">Stop/resume, redact text, ignore interactions</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ============ STRESS SCREENS ============ -->
+                <section class="view" data-view="/stress" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Stress Screens</h2>
+                    </div>
+                    <div class="home-options">
+                        <a href="#/stress-static" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Auto-Capture Stress (Static)</span>
+                            <span class="home-card-desc">Every card in the DOM at once &mdash; the worst case</span>
+                        </a>
+                        <a href="#/stress-feed" class="home-card">
+                            <span class="home-card-icon">&#9881;</span>
+                            <span class="home-card-title">Auto-Capture Stress (Feed)</span>
+                            <span class="home-card-desc">A feed that grows as you scroll</span>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- ============ CONFIGURATION (SDK setup) ============ -->
+                <section class="view" data-view="/configuration" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Configuration</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>App Token</h3>
+                        <label class="ac-field">Token
+                            <input type="text" id="configAppToken" placeholder="Enter your app token" autocomplete="off" autocapitalize="off" autocorrect="off" />
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>SDK Options</h3>
+                        <div id="configFlags" class="config-flags"></div>
+                    </div>
+
+                    <div class="section">
+                        <p class="hint config-note">Changes are applied on the next launch. The app will restart after saving.</p>
+                        <div class="button-grid">
+                            <button id="configSaveRestartBtn" class="plugin-btn">Save &amp; Restart</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ SDK METHODS ============ -->
+                <section class="view" data-view="/sdk" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>SDK Methods</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Session</h3>
+                        <div class="button-grid">
+                            <button id="setupBtn" class="plugin-btn">Setup</button>
+                            <button id="callbacksBtn" class="plugin-btn">Register Callbacks</button>
+                            <button id="logoutBtn" class="plugin-btn">Logout</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Identify</h3>
+                        <label class="ac-field">User ID
+                            <input type="text" id="userIdInput" placeholder="e.g. user123" value="user123" />
+                        </label>
+                        <div class="button-grid">
+                            <button id="identifyBtn" class="plugin-btn">Identify</button>
+                            <button id="anonymousBtn" class="plugin-btn">Anonymous</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Track Event</h3>
+                        <label class="ac-field">Event Name
+                            <input type="text" id="eventNameInput" placeholder="e.g. button_clicked" value="button_clicked" />
+                        </label>
+                        <div class="button-grid">
+                            <button id="trackBtn" class="plugin-btn">Track</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Screen</h3>
+                        <label class="ac-field">Screen Name
+                            <input type="text" id="screenNameInput" placeholder="e.g. Dashboard" value="Dashboard" />
+                        </label>
+                        <div class="button-grid">
+                            <button id="screenBtn" class="plugin-btn">Screen</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Experiences</h3>
+                        <div class="button-grid">
+                            <button id="triggerExpBtn" class="plugin-btn">Trigger Experience</button>
+                            <button id="endExpBtn" class="plugin-btn">End Experience</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Deep Link</h3>
+                        <div class="button-grid">
+                            <button id="deepLinkBtn" class="plugin-btn">Test Deep Link</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ AUTO-CAPTURE COMPONENTS ============ -->
+                <section class="view" data-view="/components" hidden>
+                    <div class="view-header">
+                        <a href="#/autocapture" class="back-btn">&#8249; Back</a>
+                        <h2>Components</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Buttons</h3>
+                        <div class="button-grid">
+                            <button id="acPrimaryBtn" class="plugin-btn" data-testid="primary-action">Primary</button>
+                            <button id="acSecondaryBtn" class="plugin-btn">Secondary</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Checkbox</h3>
+                        <label class="ac-field"><input type="checkbox" id="acCheckbox" /> Subscribe to newsletter</label>
+                    </div>
+
+                    <div class="section">
+                        <h3>Toggle</h3>
+                        <label class="ac-field">
+                            <input type="checkbox" role="switch" id="acToggle" aria-label="Enable notifications" />
+                            Enable notifications
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>Radio buttons</h3>
+                        <div class="ac-field" role="radiogroup" aria-label="Plan">
+                            <label><input type="radio" name="plan" value="free" checked /> Free</label>
+                            <label><input type="radio" name="plan" value="pro" /> Pro</label>
+                            <label><input type="radio" name="plan" value="enterprise" /> Enterprise</label>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Edit text</h3>
+                        <label class="ac-field">Name
+                            <input type="text" id="acName" placeholder="Your name" />
+                        </label>
+                        <label class="ac-field">Bio
+                            <textarea id="acBio" placeholder="About you..."></textarea>
+                        </label>
+                        <label class="ac-field" data-userpilot-redact>Email (redacted)
+                            <input type="email" id="acEmail" placeholder="you@example.com" />
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>Select</h3>
+                        <label class="ac-field">Country
+                            <select id="acSelect">
+                                <option value="us">United States</option>
+                                <option value="eg">Egypt</option>
+                                <option value="de">Germany</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>Slider</h3>
+                        <label class="ac-field">Volume
+                            <input type="range" id="acRange" min="0" max="100" value="50" />
+                        </label>
+                    </div>
+
+                    <div class="section">
+                        <h3>Form</h3>
+                        <form id="acForm" class="ac-field">
+                            <input type="text" name="query" placeholder="Search query" />
+                            <button type="submit" class="plugin-btn">Submit</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- ============ NAVIGATION ============ -->
+                <section class="view" data-view="/navigation" hidden>
+                    <div class="view-header">
+                        <a href="#/autocapture" class="back-btn">&#8249; Back</a>
+                        <h2>Navigation</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Tabs</h3>
+                        <div class="tabs" role="tablist" aria-label="Sections">
+                            <button class="tab" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+                            <button class="tab" role="tab" aria-selected="false" data-tab="details">Details</button>
+                            <button class="tab" role="tab" aria-selected="false" data-tab="reviews">Reviews</button>
+                        </div>
+                        <div class="tab-panels">
+                            <div class="tab-panel" data-panel="overview">Overview content</div>
+                            <div class="tab-panel" data-panel="details" hidden>Details content</div>
+                            <div class="tab-panel" data-panel="reviews" hidden>Reviews content</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Drawer</h3>
+                        <button id="drawerOpenBtn" class="plugin-btn" aria-label="Open navigation drawer">&#9776; Open Drawer</button>
+                    </div>
+
+                    <div class="section">
+                        <h3>Bottom Navigation</h3>
+                        <p class="hint">Active: <span id="bottomNavLabel">Home</span></p>
+                        <nav class="bottom-nav" role="tablist" aria-label="Bottom navigation">
+                            <button class="bottom-nav-item" role="tab" aria-selected="true" data-nav="Home">
+                                <span class="bottom-nav-icon">&#8962;</span>Home
+                            </button>
+                            <button class="bottom-nav-item" role="tab" aria-selected="false" data-nav="Search">
+                                <span class="bottom-nav-icon">&#9906;</span>Search
+                            </button>
+                            <button class="bottom-nav-item" role="tab" aria-selected="false" data-nav="Profile">
+                                <span class="bottom-nav-icon">&#9787;</span>Profile
+                            </button>
+                        </nav>
+                    </div>
+                </section>
+
+                <!-- ============ MENUS ============ -->
+                <section class="view" data-view="/menus" hidden>
+                    <div class="view-header">
+                        <a href="#/autocapture" class="back-btn">&#8249; Back</a>
+                        <h2>Menus</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Dropdown Menu</h3>
+                        <div class="menu-anchor">
+                            <button id="dropdownBtn" class="plugin-btn" aria-haspopup="true" aria-expanded="false">Options &#9662;</button>
+                            <div id="dropdownMenu" class="menu" role="menu" hidden>
+                                <button class="menu-item" role="menuitem" data-action="edit">Edit</button>
+                                <button class="menu-item" role="menuitem" data-action="duplicate">Duplicate</button>
+                                <button class="menu-item" role="menuitem" data-action="delete">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Context Menu</h3>
+                        <div id="contextArea" class="context-area">Tap the button to open a context menu</div>
+                        <button id="contextBtn" class="plugin-btn">Show context menu</button>
+                        <div id="contextMenu" class="menu" role="menu" hidden>
+                            <button class="menu-item" role="menuitem" data-action="copy">Copy</button>
+                            <button class="menu-item" role="menuitem" data-action="share">Share</button>
+                            <button class="menu-item" role="menuitem" data-action="report">Report</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ LIST ============ -->
+                <section class="view" data-view="/list" hidden>
+                    <div class="view-header">
+                        <a href="#/autocapture" class="back-btn">&#8249; Back</a>
+                        <h2>List</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Contacts</h3>
+                        <p class="hint">Each row is a clickable list item (role="option") &#8594; list_item_selected</p>
+                        <ul class="list" role="listbox" aria-label="Contacts">
+                            <li><button class="list-item" role="option" data-testid="contact-amelia">Amelia Watson</button></li>
+                            <li><button class="list-item" role="option" data-testid="contact-marcus">Marcus Chen</button></li>
+                            <li><button class="list-item" role="option" data-testid="contact-sofia">Sofia Rossi</button></li>
+                            <li><button class="list-item" role="option" data-testid="contact-liam">Liam Murphy</button></li>
+                            <li><button class="list-item" role="option" data-testid="contact-yuki">Yuki Tanaka</button></li>
+                            <li><button class="list-item" role="option" data-testid="contact-omar">Omar Haddad</button></li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ============ AUTO-CAPTURE CONFIG ============ -->
+                <section class="view" data-view="/config" hidden>
+                    <div class="view-header">
+                        <a href="#/autocapture" class="back-btn">&#8249; Back</a>
+                        <h2>Auto-Capture Config</h2>
+                    </div>
+
+                    <div class="section">
+                        <h3>Engine</h3>
+                        <p class="hint">Status: <span id="autoCaptureStatus">running</span></p>
+                        <div class="button-grid">
+                            <button id="stopCaptureBtn" class="plugin-btn">Stop Auto-Capture</button>
+                            <button id="resumeCaptureBtn" class="plugin-btn">Resume Auto-Capture</button>
+                        </div>
+                        <p class="hint">After stopping, taps below should no longer be captured (check console logs).</p>
+                        <div class="button-grid">
+                            <button class="plugin-btn" data-testid="probe-1">Probe A</button>
+                            <button class="plugin-btn" data-testid="probe-2">Probe B</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Redact Text</h3>
+                        <p class="hint">Redacts captured text in the target subtree. The second argument toggles it.</p>
+                        <div id="redactTarget" class="redact-target">
+                            <button class="plugin-btn" data-testid="sensitive-btn">Sensitive Label</button>
+                            <label class="ac-field">Card number
+                                <input type="text" id="acCardNumber" placeholder="4242 4242 4242 4242" />
+                            </label>
+                        </div>
+                        <div class="button-grid">
+                            <button id="redactBtn" class="plugin-btn">Redact (true)</button>
+                            <button id="unredactBtn" class="plugin-btn">Un-redact (false)</button>
+                        </div>
+                        <p class="hint">While redacted, the button&rsquo;s <code>target_text</code> and the field&rsquo;s <code>placeholder</code> are both sent as <code>****</code>.</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>Ignore Interactions</h3>
+                        <p class="hint">Drops auto-capture for everything inside the target subtree. The second argument toggles it.</p>
+                        <div id="ignoreTarget" class="ignore-target">
+                            <button class="plugin-btn" data-testid="ignored-btn">Ignored Button</button>
+                        </div>
+                        <div class="button-grid">
+                            <button id="ignoreBtn" class="plugin-btn">Ignore (true)</button>
+                            <button id="captureBtn" class="plugin-btn">Capture (false)</button>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Nested ignore &mdash; closest wins</h3>
+                        <p class="hint">Applies <code>ignore(true)</code> to the outer panel and <code>ignore(false)</code> to the inner one. Button 1 goes quiet; Button 2 keeps firing.</p>
+                        <div id="nestedIgnoreOuter" class="ignore-target">
+                            <p class="hint marker-label">outer &rarr; ignore(true)</p>
+                            <button class="plugin-btn" data-testid="nested-ignore-1">Button 1 &mdash; not captured</button>
+
+                            <div id="nestedIgnoreInner" class="ignore-target">
+                                <p class="hint marker-label">inner &rarr; ignore(false)</p>
+                                <button class="plugin-btn" data-testid="nested-ignore-2">Button 2 &mdash; captured</button>
+                            </div>
+                        </div>
+                        <div class="button-grid">
+                            <button id="nestedIgnoreApplyBtn" class="plugin-btn">Apply nested ignore</button>
+                            <button id="nestedIgnoreResetBtn" class="plugin-btn">Reset both</button>
+                        </div>
+                        <p class="hint">Tap both buttons and watch <strong>SDK Callbacks</strong> &mdash; only Button 2 produces an event.</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>Nested redact &mdash; closest wins</h3>
+                        <p class="hint">Applies <code>redact(true)</code> to the outer panel and <code>redact(false)</code> to the inner one. Both buttons still fire; only Button 1&rsquo;s text is masked.</p>
+                        <div id="nestedRedactOuter" class="redact-target">
+                            <p class="hint marker-label">outer &rarr; redact(true)</p>
+                            <button class="plugin-btn" data-testid="nested-redact-1">Masked Label</button>
+
+                            <div id="nestedRedactInner" class="redact-target">
+                                <p class="hint marker-label">inner &rarr; redact(false)</p>
+                                <button class="plugin-btn" data-testid="nested-redact-2">Visible Label</button>
+                            </div>
+                        </div>
+                        <div class="button-grid">
+                            <button id="nestedRedactApplyBtn" class="plugin-btn">Apply nested redact</button>
+                            <button id="nestedRedactResetBtn" class="plugin-btn">Reset both</button>
+                        </div>
+                        <p class="hint">Compare <code>target_text</code> in <strong>SDK Callbacks</strong>: <code>****</code> for Button 1, <code>Visible Label</code> for Button 2.</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>Declarative attributes</h3>
+                        <p class="hint">No JS needed &mdash; <code>data-userpilot-ignore="false"</code> carves an exception out of an ignored subtree. Active as soon as the screen loads.</p>
+                        <div class="ignore-target" data-userpilot-ignore>
+                            <p class="hint marker-label">data-userpilot-ignore</p>
+                            <button class="plugin-btn" data-testid="attr-ignore-1">Button 1 &mdash; not captured</button>
+
+                            <div class="ignore-target" data-userpilot-ignore="false">
+                                <p class="hint marker-label">data-userpilot-ignore="false"</p>
+                                <button class="plugin-btn" data-testid="attr-ignore-2">Button 2 &mdash; captured</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============ AUTO-CAPTURE STRESS ============
+                     Both screens are shells: the cards, the controls and the
+                     stats bar are all built in js/stress.js, because a few
+                     hundred rich cards is not markup anyone should maintain by
+                     hand — and because the build cost itself is one of the
+                     things being measured. -->
+                <section class="view" data-view="/stress-static" hidden>
+                    <div class="view-header">
+                        <a href="#/stress" class="back-btn">&#8249; Back</a>
+                        <h2>Stress: Static</h2>
+                    </div>
+                    <div id="stressStaticControls" class="heavy-actions"></div>
+                    <p id="stressStaticNote" class="hint heavy-note"></p>
+                    <div id="stressStaticCards"></div>
+                    <div id="stressStaticStats" class="heavy-stats-bar"></div>
+                </section>
+
+                <section class="view" data-view="/stress-feed" hidden>
+                    <div class="view-header">
+                        <a href="#/stress" class="back-btn">&#8249; Back</a>
+                        <h2>Stress: Feed</h2>
+                    </div>
+                    <div id="stressFeedControls" class="heavy-actions"></div>
+                    <p id="stressFeedNote" class="hint heavy-note"></p>
+                    <div id="stressFeedCards"></div>
+                    <div id="stressFeedSentinel" class="heavy-sentinel"></div>
+                    <div id="stressFeedStats" class="heavy-stats-bar"></div>
+                </section>
+
+                <!-- Drawer overlay + panel (shared) -->
+                <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+                <aside id="drawer" class="drawer" role="menu" aria-label="Navigation drawer" hidden>
+                    <h3>Menu</h3>
+                    <button class="menu-item" role="menuitem" data-action="dashboard">Dashboard</button>
+                    <button class="menu-item" role="menuitem" data-action="messages">Messages</button>
+                    <button class="menu-item" role="menuitem" data-action="settings">Settings</button>
+                    <button class="menu-item" role="menuitem" data-action="logout">Logout</button>
+                </aside>
+
+                <!-- Status/Output area (shared across screens) -->
+                <div id="output" class="output">
+                    <h3>Output:</h3>
+                    <div id="outputContent"></div>
+                </div>
+
+                <!-- Callbacks area (shared across screens) -->
+                <div id="callbacks" class="output">
+                    <h3>SDK Callbacks:</h3>
+                    <div id="callbacksContent"></div>
+                </div>
+            </div>
+        </div>
+        <script src="cordova.js"></script>
+        <script src="js/stress.js"></script>
+        <script src="js/index.js"></script>
+    </body>
+</html>

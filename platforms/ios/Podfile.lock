@@ -1,0 +1,22 @@
+PODS:
+  - Userpilot (1.4.0)
+
+DEPENDENCIES:
+  - Userpilot (from `https://github.com/Userpilot/ios-sdk.git`, tag `1.4.0`)
+
+EXTERNAL SOURCES:
+  Userpilot:
+    :git: https://github.com/Userpilot/ios-sdk.git
+    :tag: 1.4.0
+
+CHECKOUT OPTIONS:
+  Userpilot:
+    :git: https://github.com/Userpilot/ios-sdk.git
+    :tag: 1.4.0
+
+SPEC CHECKSUMS:
+  Userpilot: b22f2f875f6ab56f45da9e6be55498c57012dc5a
+
+PODFILE CHECKSUM: 81019275ad8902d714cfff4da5937af0ee2162e2
+
+COCOAPODS: 1.16.2

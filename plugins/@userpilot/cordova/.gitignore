@@ -1,0 +1,19 @@
+.DS_Store
+.idea
+node_modules/
+*.iml
+
+# AI agent tooling (local while evaluating — not tracked)
+# Keeps files on disk across branch switches; use git rm --cached if they were previously tracked.
+.agents/
+.claude/
+.cursor/
+AGENTS.md
+CLAUDE.md
+
+# Locally generated agent plans — not project documentation
+plan/
+
+# Local GitHub Actions cleanup helper and audit records
+/scripts/cleanup-github-actions.py
+/.local/github-actions-cleanup/

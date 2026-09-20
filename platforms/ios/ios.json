@@ -1,0 +1,212 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {
+      "config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"UniversalLinks\"><param name=\"ios-package\" value=\"CULPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"UserpilotCordovaPlugin\"><param name=\"ios-package\" value=\"UserpilotCordovaPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "CFBundleURLTypes": [
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>userpilot-APP_TOKEN</string></array></dict></array>",
+              "count": 1
+            }
+          ],
+          "CFBundleVersion": [
+            {
+              "xml": "<string>1</string>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*/Entitlements-Debug.plist": {
+        "parents": {
+          "aps-environment": [
+            {
+              "xml": "<string>development</string>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "*/Entitlements-Release.plist": {
+        "parents": {
+          "aps-environment": [
+            {
+              "xml": "<string>production</string>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "build.xcconfig": {
+        "parents": {
+          "SWIFT_OBJC_BRIDGING_HEADER": [
+            {
+              "xml": "<string>$(PROJECT_DIR)/$(PROJECT_NAME)/Plugins/UserpilotCordovaPlugin-Bridging-Header.h</string>",
+              "count": 1
+            }
+          ],
+          "IPHONEOS_DEPLOYMENT_TARGET": [
+            {
+              "xml": "<string>13.0</string>",
+              "count": 1
+            }
+          ],
+          "SWIFT_VERSION": [
+            {
+              "xml": "<string>5.0</string>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
+  },
+  "installed_plugins": {
+    "cordova-plugin-deeplinks": {
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "userpilot-APP_TOKEN",
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "@userpilot/cordova": {
+      "DEPLOYMENT-TARGET": "13.0",
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "cordova-plugin-deeplinks.universalLinks",
+      "file": "plugins/cordova-plugin-deeplinks/www/universal_links.js",
+      "pluginId": "cordova-plugin-deeplinks",
+      "clobbers": [
+        "universalLinks"
+      ]
+    },
+    {
+      "id": "cordova-plugin-customurlscheme.LaunchMyApp",
+      "file": "plugins/cordova-plugin-customurlscheme/www/ios/LaunchMyApp.js",
+      "pluginId": "cordova-plugin-customurlscheme",
+      "clobbers": [
+        "window.plugins.launchmyapp"
+      ]
+    },
+    {
+      "id": "@userpilot/cordova.Userpilot",
+      "file": "plugins/@userpilot/cordova/www/userpilot.js",
+      "pluginId": "@userpilot/cordova",
+      "clobbers": [
+        "userpilot"
+      ]
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureConstants",
+      "file": "plugins/@userpilot/cordova/www/autocapture/constants.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureConfig",
+      "file": "plugins/@userpilot/cordova/www/autocapture/config.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureInteractionType",
+      "file": "plugins/@userpilot/cordova/www/autocapture/interaction-type.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureLogger",
+      "file": "plugins/@userpilot/cordova/www/autocapture/util/logger.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureGuardedRun",
+      "file": "plugins/@userpilot/cordova/www/autocapture/util/guarded-run.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureEventSuppressor",
+      "file": "plugins/@userpilot/cordova/www/autocapture/util/event-suppressor.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureRedactor",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/redactor.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureGovernance",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/governance.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureElementClassifier",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/element-classifier.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureElementInspector",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/element-inspector.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureEventTarget",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/event-target.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureInteractionObserver",
+      "file": "plugins/@userpilot/cordova/www/autocapture/dom/interaction-observer.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureRouteTracker",
+      "file": "plugins/@userpilot/cordova/www/autocapture/screen/route-tracker.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureScreenNameTracker",
+      "file": "plugins/@userpilot/cordova/www/autocapture/screen-name-tracker.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureCoordinator",
+      "file": "plugins/@userpilot/cordova/www/autocapture/coordinator.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureBridge",
+      "file": "plugins/@userpilot/cordova/www/autocapture/bridge.js",
+      "pluginId": "@userpilot/cordova"
+    },
+    {
+      "id": "@userpilot/cordova.AutoCaptureEngine",
+      "file": "plugins/@userpilot/cordova/www/autocapture/engine.js",
+      "pluginId": "@userpilot/cordova"
+    }
+  ],
+  "plugin_metadata": {
+    "cordova-plugin-deeplinks": "1.1.1",
+    "cordova-plugin-customurlscheme": "5.0.2",
+    "@userpilot/cordova": "1.3.0"
+  }
+}

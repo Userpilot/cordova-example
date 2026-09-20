@@ -11,7 +11,7 @@
     
     <!-- Deep Links Configuration for cordova-plugin-deeplinks -->
     <universal-links>
-        <host name="sdk" scheme="userpilot-nx-b7b285fd" event="deeplink" />
+        <host name="sdk" scheme="userpilot-APP_TOKEN" event="deeplink" />
     </universal-links>
     
     <!-- iOS Platform Configuration -->
