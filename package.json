@@ -13,6 +13,7 @@
     "build": "cordova build",
     "run:android": "cordova run android",
     "run:ios": "cordova run ios",
+    "run:ios:device": "cordova build ios --device && node scripts/deploy-ios-device.js",
     "build:android": "cordova build android",
     "build:ios": "cordova build ios",
     "remove:userpilot": "cordova plugin remove @userpilot/cordova --variable DEPLOYMENT-TARGET=13.0",
