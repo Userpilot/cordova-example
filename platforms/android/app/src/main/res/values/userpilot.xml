@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Small icon displayed in the notification bar -->
+    <drawable name="userpilot_notification_small_icon">@drawable/userpilot_ic_notification</drawable>
+
+    <!-- Accent color applied to notification UI elements -->
+    <color name="userpilot_notification_color">#6765E8</color>
+
+    <!-- Determines if notifications are visible on the lock screen (true = visible) -->
+    <bool name="userpilot_notification_channel_lock_screen_visibility">true</bool>
+
+    <!-- Enables notification lights for the channel -->
+    <bool name="userpilot_notification_channel_enable_light">true</bool>
+
+    <!-- Enables vibration for the notifications -->
+    <bool name="userpilot_notification_channel_enable_vibration">true</bool>
+
+    <!-- Unique ID for the notification channel -->
+    <string name="userpilot_notification_channel_id">com.userpilot.general.channel</string>
+
+    <!-- Human-readable name for the notification channel -->
+    <string name="userpilot_notification_channel_name">General</string>
+
+    <!-- Description shown to the user about this notification channel -->
+    <string name="userpilot_notification_channel_description">Default channel used for app messages</string>
+
+    <!-- Importance level of the notification channel (0 = NONE, 5 = MAX) -->
+    <integer name="userpilot_notification_channel_importance">3</integer>
+
+</resources>

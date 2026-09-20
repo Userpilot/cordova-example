@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A5C148E2D96469CA9B318EB /* CULConfigJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B219573C63B4A6CB6669A11 /* CULConfigJsonParser.m */; };
-		0BD768632CD5431D81797F22 /* CULHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7E49DD422E4545B126CBBE /* CULHost.m */; };
-		3703729027E94D11AD196A21 /* CDVInvokedUrlCommand+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 62C4766EEB034EE3964D74B7 /* CDVInvokedUrlCommand+CULPlugin.m */; };
-		413D476F86824ED78A06CCA9 /* CDVPluginResult+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = FA2C5A2CF02B4E07B4B58EDD /* CDVPluginResult+CULPlugin.m */; };
-		6DEF762ACDDA44478680C9CA /* CULConfigXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A5C70BDF004E3CAC070D6E /* CULConfigXmlParser.m */; };
-		8A19CB291B7549BBAE818483 /* NSBundle+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A0EE1848D3E484AB52A494C /* NSBundle+CULPlugin.m */; };
+		0360D01E86314CE185D66070 /* CULXmlTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 3691030B11C54D1F951D2E1E /* CULXmlTags.m */; };
+		0CDF2646A33D4558BDA96646 /* CDVInvokedUrlCommand+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA388EDC42547E6A7E132A5 /* CDVInvokedUrlCommand+CULPlugin.m */; };
+		239EF485DDDF4C68A0B5DFF0 /* CDVPluginResult+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 30C9F543140B4924AC542540 /* CDVPluginResult+CULPlugin.m */; };
+		29707E6714154ED98743C7BD /* CULConfigXmlParser.m in Sources */ = {isa = PBXBuildFile; fileRef = FD32CE0CE1264EFE8661E18D /* CULConfigXmlParser.m */; };
+		2DE00EA47134429980B3A233 /* AppDelegate+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = D64574D2293B4CB19358C12E /* AppDelegate+CULPlugin.m */; };
+		6D7E29AD867149F9BDF54429 /* NSBundle+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 43B5D0CCB0EF4F4DA43E3457 /* NSBundle+CULPlugin.m */; };
+		72824D577240D0C0F2884027 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D9AB1B4AAB6C650780009972 /* Pods_App.framework */; };
+		74037AF0D01243C99D560190 /* CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 07360C7DE0B14D36820C1381 /* CULPlugin.m */; };
+		7F564862C97D42D8B7A4E57D /* CULConfigJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 94DD70BA91244F03B2FA8F49 /* CULConfigJsonParser.m */; };
+		82722EB40EDE451F95AD1BE0 /* UserpilotCordovaLaunchURLCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B08C448F8F045B8AC5F2D9B /* UserpilotCordovaLaunchURLCapture.m */; };
 		907F98562C06B87200D2D242 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 907F98552C06B87200D2D242 /* PrivacyInfo.xcprivacy */; };
 		907F98662C06BC1B00D2D242 /* config.xml in Resources */ = {isa = PBXBuildFile; fileRef = 907F98652C06BC1B00D2D242 /* config.xml */; };
 		907F986A2C06BCD300D2D242 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 907F98692C06BCD300D2D242 /* www */; };
@@ -24,12 +28,9 @@
 		90CBB52A2C06968500B805A2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CBB5292C06968500B805A2 /* SceneDelegate.swift */; };
 		90CBB52C2C06968500B805A2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90CBB52B2C06968500B805A2 /* ViewController.swift */; };
 		90D82ABD2CF19AEA001383CF /* CordovaPlugins in Frameworks */ = {isa = PBXBuildFile; productRef = 90D82ABC2CF19AEA001383CF /* CordovaPlugins */; };
-		BDE685CD1AEB40599E738EF8 /* UserpilotCordovaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F870F9BD6E494FBD43A8A8 /* UserpilotCordovaPlugin.swift */; };
-		D525C83C7F594959A95681F2 /* CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = B25BECB97261497EBF9CCE0F /* CULPlugin.m */; };
-		D8638AC14589424690C38C31 /* CULXmlTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 717D32ECB807460FB509A31F /* CULXmlTags.m */; };
-		DB7437296771A121FF3B4868 /* Pods_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ACAFE3CC8BC0262180D4164 /* Pods_App.framework */; };
-		E6BE535D95124B15AD9893C0 /* CULPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F6131F62FDA4CC98D7C04E8 /* CULPath.m */; };
-		F977CB2CDAF74D4484F8D532 /* AppDelegate+CULPlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A144207614483B2FFC5F2 /* AppDelegate+CULPlugin.m */; };
+		A039F13E8A2F41CB801D1F5A /* UserpilotCordovaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63973E5E607A4512A0662E62 /* UserpilotCordovaPlugin.swift */; };
+		D601B4F54A3C4CD5B27D2E99 /* CULPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB1345A1E0A4267B0B6EDB8 /* CULPath.m */; };
+		FAFCBD00B9664F779ED3C1C5 /* CULHost.m in Sources */ = {isa = PBXBuildFile; fileRef = 85F693062B7D4F6EA5B73CB4 /* CULHost.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,22 +47,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0ACAFE3CC8BC0262180D4164 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		10DF4AF38B9D45469FC70B3B /* AppDelegate+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+CULPlugin.h"; path = "cordova-plugin-deeplinks/AppDelegate+CULPlugin.h"; sourceTree = "<group>"; };
-		161339F195E24CEBB75D9483 /* UserpilotCordovaPlugin-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "UserpilotCordovaPlugin-Bridging-Header.h"; path = "@userpilot/cordova/UserpilotCordovaPlugin-Bridging-Header.h"; sourceTree = "<group>"; };
-		16AC50D47F8744418938590C /* CDVPluginResult+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "CDVPluginResult+CULPlugin.h"; path = "cordova-plugin-deeplinks/JS/CDVPluginResult+CULPlugin.h"; sourceTree = "<group>"; };
-		3F6131F62FDA4CC98D7C04E8 /* CULPath.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULPath.m; path = "cordova-plugin-deeplinks/Model/CULPath.m"; sourceTree = "<group>"; };
-		48A5C70BDF004E3CAC070D6E /* CULConfigXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULConfigXmlParser.m; path = "cordova-plugin-deeplinks/Parser/XML/CULConfigXmlParser.m"; sourceTree = "<group>"; };
-		4F4602AA7B2B43809EF13829 /* CULXmlTags.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULXmlTags.h; path = "cordova-plugin-deeplinks/Parser/XML/CULXmlTags.h"; sourceTree = "<group>"; };
-		50A5863A00A840BB85AA0086 /* CULPath.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULPath.h; path = "cordova-plugin-deeplinks/Model/CULPath.h"; sourceTree = "<group>"; };
-		5B219573C63B4A6CB6669A11 /* CULConfigJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULConfigJsonParser.m; path = "cordova-plugin-deeplinks/Parser/JSON/CULConfigJsonParser.m"; sourceTree = "<group>"; };
-		62C4766EEB034EE3964D74B7 /* CDVInvokedUrlCommand+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVInvokedUrlCommand+CULPlugin.m"; path = "cordova-plugin-deeplinks/JS/CDVInvokedUrlCommand+CULPlugin.m"; sourceTree = "<group>"; };
-		6E7E49DD422E4545B126CBBE /* CULHost.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULHost.m; path = "cordova-plugin-deeplinks/Model/CULHost.m"; sourceTree = "<group>"; };
-		6F63C3D2D1034A489D513F1A /* CULConfigJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULConfigJsonParser.h; path = "cordova-plugin-deeplinks/Parser/JSON/CULConfigJsonParser.h"; sourceTree = "<group>"; };
-		717D32ECB807460FB509A31F /* CULXmlTags.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULXmlTags.m; path = "cordova-plugin-deeplinks/Parser/XML/CULXmlTags.m"; sourceTree = "<group>"; };
-		86207AD2C4A94357B6E86A1E /* CULConfigXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULConfigXmlParser.h; path = "cordova-plugin-deeplinks/Parser/XML/CULConfigXmlParser.h"; sourceTree = "<group>"; };
-		8A0EE1848D3E484AB52A494C /* NSBundle+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+CULPlugin.m"; path = "cordova-plugin-deeplinks/Utils/NSBundle+CULPlugin.m"; sourceTree = "<group>"; };
-		8B9A144207614483B2FFC5F2 /* AppDelegate+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+CULPlugin.m"; path = "cordova-plugin-deeplinks/AppDelegate+CULPlugin.m"; sourceTree = "<group>"; };
+		0472151F06174F748F235BF9 /* AppDelegate+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "AppDelegate+CULPlugin.h"; path = "cordova-plugin-deeplinks/AppDelegate+CULPlugin.h"; sourceTree = "<group>"; };
+		07360C7DE0B14D36820C1381 /* CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULPlugin.m; path = "cordova-plugin-deeplinks/CULPlugin.m"; sourceTree = "<group>"; };
+		1B08C448F8F045B8AC5F2D9B /* UserpilotCordovaLaunchURLCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = UserpilotCordovaLaunchURLCapture.m; path = "@userpilot/cordova/common/UserpilotCordovaLaunchURLCapture.m"; sourceTree = "<group>"; };
+		25554072CA524AAE9628CEB1 /* CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULPlugin.h; path = "cordova-plugin-deeplinks/CULPlugin.h"; sourceTree = "<group>"; };
+		30C9F543140B4924AC542540 /* CDVPluginResult+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVPluginResult+CULPlugin.m"; path = "cordova-plugin-deeplinks/JS/CDVPluginResult+CULPlugin.m"; sourceTree = "<group>"; };
+		3691030B11C54D1F951D2E1E /* CULXmlTags.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULXmlTags.m; path = "cordova-plugin-deeplinks/Parser/XML/CULXmlTags.m"; sourceTree = "<group>"; };
+		3808A23A0CB44112A08AD629 /* CDVPluginResult+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "CDVPluginResult+CULPlugin.h"; path = "cordova-plugin-deeplinks/JS/CDVPluginResult+CULPlugin.h"; sourceTree = "<group>"; };
+		382DD0DB20AA432486034062 /* CULConfigJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULConfigJsonParser.h; path = "cordova-plugin-deeplinks/Parser/JSON/CULConfigJsonParser.h"; sourceTree = "<group>"; };
+		43B5D0CCB0EF4F4DA43E3457 /* NSBundle+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "NSBundle+CULPlugin.m"; path = "cordova-plugin-deeplinks/Utils/NSBundle+CULPlugin.m"; sourceTree = "<group>"; };
+		5FFEEF808A696F41B631EF61 /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
+		63973E5E607A4512A0662E62 /* UserpilotCordovaPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = UserpilotCordovaPlugin.swift; path = "@userpilot/cordova/common/UserpilotCordovaPlugin.swift"; sourceTree = "<group>"; };
+		677C2CF6FFB44EA4AAAE2D3D /* CULPath.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULPath.h; path = "cordova-plugin-deeplinks/Model/CULPath.h"; sourceTree = "<group>"; };
+		710F7F50C3E242ED8F0AC734 /* NSBundle+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "NSBundle+CULPlugin.h"; path = "cordova-plugin-deeplinks/Utils/NSBundle+CULPlugin.h"; sourceTree = "<group>"; };
+		7FB1345A1E0A4267B0B6EDB8 /* CULPath.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULPath.m; path = "cordova-plugin-deeplinks/Model/CULPath.m"; sourceTree = "<group>"; };
+		85F693062B7D4F6EA5B73CB4 /* CULHost.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULHost.m; path = "cordova-plugin-deeplinks/Model/CULHost.m"; sourceTree = "<group>"; };
+		889735F1780B4FCB92AC3DE6 /* CULHost.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULHost.h; path = "cordova-plugin-deeplinks/Model/CULHost.h"; sourceTree = "<group>"; };
+		8EF3B3FB8F2745298C2037F6 /* CULXmlTags.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULXmlTags.h; path = "cordova-plugin-deeplinks/Parser/XML/CULXmlTags.h"; sourceTree = "<group>"; };
 		9040B1872C6DD3EB00662C5D /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		9040B1882C6DD41B00662C5D /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		907F98552C06B87200D2D242 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -84,15 +86,15 @@
 		90EB30402C6DD87600CEEB2F /* build-release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "build-release.xcconfig"; path = "cordova/build-release.xcconfig"; sourceTree = SOURCE_ROOT; };
 		90F7E7002C6EB78900AD84C2 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		90F7E7012C6EB78900AD84C2 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		9214E8FDC73248BE957102BB /* CDVInvokedUrlCommand+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "CDVInvokedUrlCommand+CULPlugin.h"; path = "cordova-plugin-deeplinks/JS/CDVInvokedUrlCommand+CULPlugin.h"; sourceTree = "<group>"; };
-		9A138AE5AFF242958D401305 /* CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULPlugin.h; path = "cordova-plugin-deeplinks/CULPlugin.h"; sourceTree = "<group>"; };
-		A5CD469C15884CBEB1D75EC2 /* NSBundle+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "NSBundle+CULPlugin.h"; path = "cordova-plugin-deeplinks/Utils/NSBundle+CULPlugin.h"; sourceTree = "<group>"; };
-		A982478A24E370D861ED688C /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
-		B25BECB97261497EBF9CCE0F /* CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULPlugin.m; path = "cordova-plugin-deeplinks/CULPlugin.m"; sourceTree = "<group>"; };
-		E7F870F9BD6E494FBD43A8A8 /* UserpilotCordovaPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = UserpilotCordovaPlugin.swift; path = "@userpilot/cordova/common/UserpilotCordovaPlugin.swift"; sourceTree = "<group>"; };
-		E974BCB93B4F457485C5E9D1 /* CULHost.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULHost.h; path = "cordova-plugin-deeplinks/Model/CULHost.h"; sourceTree = "<group>"; };
-		EED5795507921E3A51E689EF /* Pods-App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.release.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.release.xcconfig"; sourceTree = "<group>"; };
-		FA2C5A2CF02B4E07B4B58EDD /* CDVPluginResult+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVPluginResult+CULPlugin.m"; path = "cordova-plugin-deeplinks/JS/CDVPluginResult+CULPlugin.m"; sourceTree = "<group>"; };
+		94DD70BA91244F03B2FA8F49 /* CULConfigJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULConfigJsonParser.m; path = "cordova-plugin-deeplinks/Parser/JSON/CULConfigJsonParser.m"; sourceTree = "<group>"; };
+		A4977591A11843ADA2BBBB61 /* CULConfigXmlParser.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CULConfigXmlParser.h; path = "cordova-plugin-deeplinks/Parser/XML/CULConfigXmlParser.h"; sourceTree = "<group>"; };
+		ACA388EDC42547E6A7E132A5 /* CDVInvokedUrlCommand+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVInvokedUrlCommand+CULPlugin.m"; path = "cordova-plugin-deeplinks/JS/CDVInvokedUrlCommand+CULPlugin.m"; sourceTree = "<group>"; };
+		BB6B5D74A720491287D9DBC0 /* CDVInvokedUrlCommand+CULPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "CDVInvokedUrlCommand+CULPlugin.h"; path = "cordova-plugin-deeplinks/JS/CDVInvokedUrlCommand+CULPlugin.h"; sourceTree = "<group>"; };
+		CB2E1C797E9B30A5E1F98A2D /* Pods-App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-App.debug.xcconfig"; path = "Target Support Files/Pods-App/Pods-App.debug.xcconfig"; sourceTree = "<group>"; };
+		D64574D2293B4CB19358C12E /* AppDelegate+CULPlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "AppDelegate+CULPlugin.m"; path = "cordova-plugin-deeplinks/AppDelegate+CULPlugin.m"; sourceTree = "<group>"; };
+		D75F2D84F68E4147B90DFA2D /* UserpilotCordovaPlugin-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "UserpilotCordovaPlugin-Bridging-Header.h"; path = "@userpilot/cordova/UserpilotCordovaPlugin-Bridging-Header.h"; sourceTree = "<group>"; };
+		D9AB1B4AAB6C650780009972 /* Pods_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD32CE0CE1264EFE8661E18D /* CULConfigXmlParser.m */ = {isa = PBXFileReference; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CULConfigXmlParser.m; path = "cordova-plugin-deeplinks/Parser/XML/CULConfigXmlParser.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,18 +104,18 @@
 			files = (
 				90A914592CA3D370003DB979 /* Cordova in Frameworks */,
 				90D82ABD2CF19AEA001383CF /* CordovaPlugins in Frameworks */,
-				DB7437296771A121FF3B4868 /* Pods_App.framework in Frameworks */,
+				72824D577240D0C0F2884027 /* Pods_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3F73083BFCD8EFDF3731E8DA /* Pods */ = {
+		68C7A0105CFFEEA45D3DF606 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A982478A24E370D861ED688C /* Pods-App.debug.xcconfig */,
-				EED5795507921E3A51E689EF /* Pods-App.release.xcconfig */,
+				CB2E1C797E9B30A5E1F98A2D /* Pods-App.debug.xcconfig */,
+				5FFEEF808A696F41B631EF61 /* Pods-App.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -129,28 +131,29 @@
 		907F98542C06B85800D2D242 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				B25BECB97261497EBF9CCE0F /* CULPlugin.m */,
-				8B9A144207614483B2FFC5F2 /* AppDelegate+CULPlugin.m */,
-				FA2C5A2CF02B4E07B4B58EDD /* CDVPluginResult+CULPlugin.m */,
-				62C4766EEB034EE3964D74B7 /* CDVInvokedUrlCommand+CULPlugin.m */,
-				6E7E49DD422E4545B126CBBE /* CULHost.m */,
-				3F6131F62FDA4CC98D7C04E8 /* CULPath.m */,
-				717D32ECB807460FB509A31F /* CULXmlTags.m */,
-				48A5C70BDF004E3CAC070D6E /* CULConfigXmlParser.m */,
-				5B219573C63B4A6CB6669A11 /* CULConfigJsonParser.m */,
-				8A0EE1848D3E484AB52A494C /* NSBundle+CULPlugin.m */,
-				9A138AE5AFF242958D401305 /* CULPlugin.h */,
-				10DF4AF38B9D45469FC70B3B /* AppDelegate+CULPlugin.h */,
-				16AC50D47F8744418938590C /* CDVPluginResult+CULPlugin.h */,
-				9214E8FDC73248BE957102BB /* CDVInvokedUrlCommand+CULPlugin.h */,
-				E974BCB93B4F457485C5E9D1 /* CULHost.h */,
-				50A5863A00A840BB85AA0086 /* CULPath.h */,
-				4F4602AA7B2B43809EF13829 /* CULXmlTags.h */,
-				86207AD2C4A94357B6E86A1E /* CULConfigXmlParser.h */,
-				6F63C3D2D1034A489D513F1A /* CULConfigJsonParser.h */,
-				A5CD469C15884CBEB1D75EC2 /* NSBundle+CULPlugin.h */,
-				E7F870F9BD6E494FBD43A8A8 /* UserpilotCordovaPlugin.swift */,
-				161339F195E24CEBB75D9483 /* UserpilotCordovaPlugin-Bridging-Header.h */,
+				07360C7DE0B14D36820C1381 /* CULPlugin.m */,
+				D64574D2293B4CB19358C12E /* AppDelegate+CULPlugin.m */,
+				30C9F543140B4924AC542540 /* CDVPluginResult+CULPlugin.m */,
+				ACA388EDC42547E6A7E132A5 /* CDVInvokedUrlCommand+CULPlugin.m */,
+				85F693062B7D4F6EA5B73CB4 /* CULHost.m */,
+				7FB1345A1E0A4267B0B6EDB8 /* CULPath.m */,
+				3691030B11C54D1F951D2E1E /* CULXmlTags.m */,
+				FD32CE0CE1264EFE8661E18D /* CULConfigXmlParser.m */,
+				94DD70BA91244F03B2FA8F49 /* CULConfigJsonParser.m */,
+				43B5D0CCB0EF4F4DA43E3457 /* NSBundle+CULPlugin.m */,
+				25554072CA524AAE9628CEB1 /* CULPlugin.h */,
+				0472151F06174F748F235BF9 /* AppDelegate+CULPlugin.h */,
+				3808A23A0CB44112A08AD629 /* CDVPluginResult+CULPlugin.h */,
+				BB6B5D74A720491287D9DBC0 /* CDVInvokedUrlCommand+CULPlugin.h */,
+				889735F1780B4FCB92AC3DE6 /* CULHost.h */,
+				677C2CF6FFB44EA4AAAE2D3D /* CULPath.h */,
+				8EF3B3FB8F2745298C2037F6 /* CULXmlTags.h */,
+				A4977591A11843ADA2BBBB61 /* CULConfigXmlParser.h */,
+				382DD0DB20AA432486034062 /* CULConfigJsonParser.h */,
+				710F7F50C3E242ED8F0AC734 /* NSBundle+CULPlugin.h */,
+				63973E5E607A4512A0662E62 /* UserpilotCordovaPlugin.swift */,
+				1B08C448F8F045B8AC5F2D9B /* UserpilotCordovaLaunchURLCapture.m */,
+				D75F2D84F68E4147B90DFA2D /* UserpilotCordovaPlugin-Bridging-Header.h */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -158,7 +161,7 @@
 		907F98602C06B8F000D2D242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0ACAFE3CC8BC0262180D4164 /* Pods_App.framework */,
+				D9AB1B4AAB6C650780009972 /* Pods_App.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -191,7 +194,7 @@
 				90BD9B6E2C06907D000DEBAB /* App */,
 				90BD9B6D2C06907D000DEBAB /* Products */,
 				907F98602C06B8F000D2D242 /* Frameworks */,
-				3F73083BFCD8EFDF3731E8DA /* Pods */,
+				68C7A0105CFFEEA45D3DF606 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -235,12 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 90BD9B852C06907E000DEBAB /* Build configuration list for PBXNativeTarget "App" */;
 			buildPhases = (
-				41DF111BE3AB39F783E6A968 /* [CP] Check Pods Manifest.lock */,
+				25BF1785F82138B429BA42D4 /* [CP] Check Pods Manifest.lock */,
 				90BD9B682C06907D000DEBAB /* Sources */,
 				90BD9B692C06907D000DEBAB /* Frameworks */,
 				90BD9B6A2C06907D000DEBAB /* Resources */,
 				902AE2152C6C059A0041150F /* Embed Frameworks */,
-				47C3816C92B8FC99B2C8148B /* [CP] Embed Pods Frameworks */,
+				DBF81839D01D93B6DE5ED76F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,7 +312,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		41DF111BE3AB39F783E6A968 /* [CP] Check Pods Manifest.lock */ = {
+		25BF1785F82138B429BA42D4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -331,7 +334,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		47C3816C92B8FC99B2C8148B /* [CP] Embed Pods Frameworks */ = {
+		DBF81839D01D93B6DE5ED76F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -358,17 +361,18 @@
 				90CBB52C2C06968500B805A2 /* ViewController.swift in Sources */,
 				90CBB5282C06968500B805A2 /* AppDelegate.swift in Sources */,
 				90CBB52A2C06968500B805A2 /* SceneDelegate.swift in Sources */,
-				D525C83C7F594959A95681F2 /* CULPlugin.m in Sources */,
-				F977CB2CDAF74D4484F8D532 /* AppDelegate+CULPlugin.m in Sources */,
-				413D476F86824ED78A06CCA9 /* CDVPluginResult+CULPlugin.m in Sources */,
-				3703729027E94D11AD196A21 /* CDVInvokedUrlCommand+CULPlugin.m in Sources */,
-				0BD768632CD5431D81797F22 /* CULHost.m in Sources */,
-				E6BE535D95124B15AD9893C0 /* CULPath.m in Sources */,
-				D8638AC14589424690C38C31 /* CULXmlTags.m in Sources */,
-				6DEF762ACDDA44478680C9CA /* CULConfigXmlParser.m in Sources */,
-				0A5C148E2D96469CA9B318EB /* CULConfigJsonParser.m in Sources */,
-				8A19CB291B7549BBAE818483 /* NSBundle+CULPlugin.m in Sources */,
-				BDE685CD1AEB40599E738EF8 /* UserpilotCordovaPlugin.swift in Sources */,
+				74037AF0D01243C99D560190 /* CULPlugin.m in Sources */,
+				2DE00EA47134429980B3A233 /* AppDelegate+CULPlugin.m in Sources */,
+				239EF485DDDF4C68A0B5DFF0 /* CDVPluginResult+CULPlugin.m in Sources */,
+				0CDF2646A33D4558BDA96646 /* CDVInvokedUrlCommand+CULPlugin.m in Sources */,
+				FAFCBD00B9664F779ED3C1C5 /* CULHost.m in Sources */,
+				D601B4F54A3C4CD5B27D2E99 /* CULPath.m in Sources */,
+				0360D01E86314CE185D66070 /* CULXmlTags.m in Sources */,
+				29707E6714154ED98743C7BD /* CULConfigXmlParser.m in Sources */,
+				7F564862C97D42D8B7A4E57D /* CULConfigJsonParser.m in Sources */,
+				6D7E29AD867149F9BDF54429 /* NSBundle+CULPlugin.m in Sources */,
+				A039F13E8A2F41CB801D1F5A /* UserpilotCordovaPlugin.swift in Sources */,
+				82722EB40EDE451F95AD1BE0 /* UserpilotCordovaLaunchURLCapture.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,9 +468,9 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_WORKSPACE = NO;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -532,9 +536,9 @@
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

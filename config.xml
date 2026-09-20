@@ -53,5 +53,26 @@
         <preference name="AndroidGradlePluginVersion" value="8.9.1" />
         <preference name="GradlePluginGoogleServicesEnabled" value="true" />
         <preference name="GradlePluginGoogleServicesVersion" value="4.4.2" />
+
+        <!-- Userpilot push notifications. The SDK's messaging service has to be
+             declared by the app; kept here rather than edited into the generated
+             AndroidManifest so `cordova prepare` cannot drop it. -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service android:exported="false" android:name="com.userpilot.pushNotifications.UserpilotFirebaseMessagingService">
+                <intent-filter>
+                    <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                </intent-filter>
+            </service>
+        </config-file>
+
+        <!-- The sample's own scheme, for links that are not Userpilot's. -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="userpilotcordovasample" />
+            </intent-filter>
+        </config-file>
     </platform>
 </widget>

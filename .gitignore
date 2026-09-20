@@ -36,6 +36,15 @@ platforms/android/local.properties
 platforms/android/**/*.iml
 plugins/**/node_modules/
 plugins/**/.git/
+
+# The Userpilot plugin is installed from its own repo with
+# `npm run add:userpilot:local`, never committed here — a second copy in this
+# repo would go stale the moment the plugin changes.
+plugins/@userpilot/
+platforms/ios/App/Plugins/@userpilot/
+platforms/android/@userpilot/
+platforms/android/app/src/main/java/com/userpilot/sdk/
+platforms/**/plugins/@userpilot/
 *.apk
 *.ipa
 *.dSYM
@@ -55,3 +64,7 @@ plan/
 # Local GitHub Actions cleanup helper and audit records
 /scripts/cleanup-github-actions.py
 /.local/github-actions-cleanup/
+
+# Firebase config carries a real project id and API key — each tester supplies
+# their own from the Firebase console (Android push does not build without it).
+platforms/android/app/google-services.json

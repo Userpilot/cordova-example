@@ -37,6 +37,10 @@
             {
               "xml": "<intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /><data android:host=\" \" android:pathPrefix=\"/\" android:scheme=\" \" /></intent-filter>",
               "count": 1
+            },
+            {
+              "xml": "<intent-filter><action android:name=\"android.intent.action.VIEW\" /><category android:name=\"android.intent.category.DEFAULT\" /><category android:name=\"android.intent.category.BROWSABLE\" /><data android:scheme=\"userpilotcordovasample\" /></intent-filter>",
+              "count": 1
             }
           ],
           "/manifest": [
@@ -46,6 +50,12 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.POST_NOTIFICATIONS\" />",
+              "count": 1
+            }
+          ],
+          "/manifest/application": [
+            {
+              "xml": "<service android:exported=\"false\" android:name=\"com.userpilot.pushNotifications.UserpilotFirebaseMessagingService\"><intent-filter><action android:name=\"com.google.firebase.MESSAGING_EVENT\" /></intent-filter></service>",
               "count": 1
             }
           ]

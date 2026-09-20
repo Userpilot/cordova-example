@@ -10,7 +10,16 @@ For information about how to get started with Cordova SDK, please check this [Gu
 
 ## Testing this app as-is
 
-The native projects under `platforms/` are committed, so a clone is ready to build. Replace the `APP_TOKEN` placeholder with your account token in these four places — the URL scheme is `userpilot-<token>`, and deep links do not reach the app if it does not match:
+The native projects under `platforms/` are committed, so a clone only needs the plugin installed into them. Clone this repo and [`cordova-plugin`](https://github.com/Userpilot/cordova-plugin) **side by side**, then:
+
+```bash
+npm install
+npm run add:userpilot:local     # installs ../cordova-plugin into both platforms
+```
+
+The plugin is deliberately *not* committed here: it lives in its own repo, and installing it at setup time means you always test the plugin you have rather than a stale copy.
+
+Then replace the `APP_TOKEN` placeholder with your account token in these places — the URL scheme is `userpilot-<token>`, and deep links do not reach the app if it does not match:
 
 | File | What to replace |
 | ---- | --------------- |
@@ -29,7 +38,7 @@ npm run build:ios      # or: npm run build:android
 
 You can also set the token at runtime from the app's **Configuration** screen, but the URL scheme still has to be edited before a QR code can open the app.
 
-> The plugin currently pins the native SDKs at **1.4.0**. Until that version is published, build the SDK locally (`./gradlew :userpilot:publishLocal` for Android, a `:path` pod for iOS) or point `src/android/UserpilotPlugin.gradle` and the `<podspec>` in the plugin at 1.3.0.
+> The plugin pins the published native SDKs — **1.3.0** on Maven Central and the `1.3.0` tag of the iOS SDK — so both platforms build from a clean clone with no local SDK build.
 
 ## How to get started?
 

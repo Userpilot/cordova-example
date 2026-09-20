@@ -18,6 +18,7 @@
 */
 
 import UIKit
+import Userpilot
 
 @main
 #if compiler(>=6.1)
@@ -26,6 +27,16 @@ import UIKit
 @_objcImplementation
 #endif
 extension AppDelegate {
+    open override func application(
+        _ application: UIApplication,
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
+        // Automatically configure for push notifications
+        Userpilot.enableAutomaticPushConfig()
+
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
     open override func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }

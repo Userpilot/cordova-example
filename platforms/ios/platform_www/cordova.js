@@ -19,7 +19,7 @@
  under the License.
 */
 ;(function() {
-var PLATFORM_VERSION_BUILD_LABEL = '8.1.1';
+var PLATFORM_VERSION_BUILD_LABEL = '8.1.0';
 // file: src/scripts/require.js
 var require;
 var define;
@@ -995,14 +995,7 @@ function execProxy () {
 }
 
 execProxy.nativeFetchMessages = function () {
-    // The built-in WKWebView-based WebView does not implement `nativeFetchMessages`
-    // since it uses `postMessage` instead.
-    // The `nativeFetchMessages` logic is kept guarded in case a custom pluggable
-    // WebView engine still implements it. This logic is apart of the old JS/native
-    // command queue dispatching/polling path.
-    if (cordovaExec().nativeFetchMessages) {
-        return cordovaExec().nativeFetchMessages.apply(null, arguments);
-    }
+    return cordovaExec().nativeFetchMessages.apply(null, arguments);
 };
 
 execProxy.nativeEvalAndFetch = function () {
@@ -1840,7 +1833,7 @@ Object.defineProperty(statusBar, 'setBackgroundColor', {
             return;
         }
 
-        var rgbVals = rgbStr.match(/[\d.]+/g).map(function (v, i) { return (i < 3) ? parseInt(v, 10) : parseFloat(v); });
+        var rgbVals = rgbStr.match(/\d+/g).map(function (v) { return parseInt(v, 10); });
         if (rgbVals.length < 3) {
             return;
         }

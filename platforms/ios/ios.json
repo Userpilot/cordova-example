@@ -5,6 +5,44 @@
   },
   "config_munge": {
     "files": {
+      "*-Info.plist": {
+        "parents": {
+          "CFBundleVersion": [
+            {
+              "xml": "<string>1</string>",
+              "count": 3
+            }
+          ],
+          "CFBundleURLTypes": [
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>userpilot-APP_TOKEN</string></array></dict></array>",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "build.xcconfig": {
+        "parents": {
+          "IPHONEOS_DEPLOYMENT_TARGET": [
+            {
+              "xml": "<string>13.0</string>",
+              "count": 3
+            }
+          ],
+          "SWIFT_VERSION": [
+            {
+              "xml": "<string>5.0</string>",
+              "count": 3
+            }
+          ],
+          "SWIFT_OBJC_BRIDGING_HEADER": [
+            {
+              "xml": "<string>$(PROJECT_DIR)/$(PROJECT_NAME)/Plugins/UserpilotCordovaPlugin-Bridging-Header.h</string>",
+              "count": 1
+            }
+          ]
+        }
+      },
       "config.xml": {
         "parents": {
           "/*": [
@@ -14,22 +52,6 @@
             },
             {
               "xml": "<feature name=\"UserpilotCordovaPlugin\"><param name=\"ios-package\" value=\"UserpilotCordovaPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
-              "count": 1
-            }
-          ]
-        }
-      },
-      "*-Info.plist": {
-        "parents": {
-          "CFBundleURLTypes": [
-            {
-              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>userpilot-APP_TOKEN</string></array></dict></array>",
-              "count": 1
-            }
-          ],
-          "CFBundleVersion": [
-            {
-              "xml": "<string>1</string>",
               "count": 1
             }
           ]
@@ -50,28 +72,6 @@
           "aps-environment": [
             {
               "xml": "<string>production</string>",
-              "count": 1
-            }
-          ]
-        }
-      },
-      "build.xcconfig": {
-        "parents": {
-          "SWIFT_OBJC_BRIDGING_HEADER": [
-            {
-              "xml": "<string>$(PROJECT_DIR)/$(PROJECT_NAME)/Plugins/UserpilotCordovaPlugin-Bridging-Header.h</string>",
-              "count": 1
-            }
-          ],
-          "IPHONEOS_DEPLOYMENT_TARGET": [
-            {
-              "xml": "<string>13.0</string>",
-              "count": 1
-            }
-          ],
-          "SWIFT_VERSION": [
-            {
-              "xml": "<string>5.0</string>",
               "count": 1
             }
           ]
