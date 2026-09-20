@@ -35,3 +35,7 @@ CLAUDE.md
 
 # Locally generated agent plans — not project documentation
 plan/
+
+# Local GitHub Actions cleanup helper and audit records
+/scripts/cleanup-github-actions.py
+/.local/github-actions-cleanup/
