@@ -33,10 +33,6 @@
         <param name="ios-package" value="CULPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="UserpilotCordovaPlugin">
-        <param name="ios-package" value="UserpilotCordovaPlugin" />
-        <param name="onload" value="true" />
-    </feature>
     <name>UserpilotSample</name>
     <description>Userpilot Sample App</description>
     <author email="dev@userpilot.com" href="https://userpilot.com">
@@ -48,6 +44,19 @@
     <universal-links>
         <host event="deeplink" name="sdk" scheme="userpilot-APP_TOKEN" />
     </universal-links>
+    <hook src="scripts/configure-ios-project.js" type="after_prepare" />
+    <hook src="scripts/configure-ios-project.js" type="before_compile" />
+    <resource-file src="resources/ios/UserpilotSample.entitlements" target="UserpilotSample.entitlements" />
+    <config-file parent="CFBundleURLTypes" target="*-Info.plist">
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>userpilot-example</string>
+                </array>
+            </dict>
+        </array>
+    </config-file>
     <config-file parent="CFBundleVersion" target="*-Info.plist">
         <string>1</string>
     </config-file>
@@ -70,4 +79,8 @@
     <preference name="SwiftVersion" value="5.0" />
     <preference name="WKWebViewOnly" value="true" />
     <preference name="CordovaWebViewEngine" value="CDVWKWebViewEngine" />
+    <feature name="UserpilotCordovaPlugin">
+        <param name="ios-package" value="UserpilotCordovaPlugin" />
+        <param name="onload" value="true" />
+    </feature>
 </widget>

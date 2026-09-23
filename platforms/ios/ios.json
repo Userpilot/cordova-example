@@ -10,12 +10,16 @@
           "CFBundleVersion": [
             {
               "xml": "<string>1</string>",
-              "count": 3
+              "count": 4
             }
           ],
           "CFBundleURLTypes": [
             {
               "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>userpilot-APP_TOKEN</string></array></dict></array>",
+              "count": 1
+            },
+            {
+              "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>userpilot-example</string></array></dict></array>",
               "count": 1
             }
           ]
@@ -26,13 +30,13 @@
           "IPHONEOS_DEPLOYMENT_TARGET": [
             {
               "xml": "<string>13.0</string>",
-              "count": 3
+              "count": 4
             }
           ],
           "SWIFT_VERSION": [
             {
               "xml": "<string>5.0</string>",
-              "count": 3
+              "count": 4
             }
           ],
           "SWIFT_OBJC_BRIDGING_HEADER": [

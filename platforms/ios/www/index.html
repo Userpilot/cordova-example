@@ -213,9 +213,23 @@
 
                     <div class="section">
                         <h3>Deep Link</h3>
+                        <p class="hint">Open <code>userpilot-example://demo</code> or test it here.</p>
                         <div class="button-grid">
-                            <button id="deepLinkBtn" class="plugin-btn">Test Deep Link</button>
+                            <button id="demoDeepLinkBtn" class="plugin-btn">Test Demo Deep Link</button>
+                            <button id="deepLinkBtn" class="plugin-btn">Test Experience Preview</button>
                         </div>
+                    </div>
+                </section>
+
+                <!-- ============ DEEP LINK ============ -->
+                <section class="view" data-view="/deep-link" hidden>
+                    <div class="view-header">
+                        <a href="#/home" class="back-btn">&#8249; Back</a>
+                        <h2>Deep Link</h2>
+                    </div>
+                    <div class="section">
+                        <h3>Opened from a deep link</h3>
+                        <p>Received URL: <code id="deepLinkUrl"></code></p>
                     </div>
                 </section>
 

@@ -31,10 +31,11 @@
     </config-file>
     <config-file parent="/manifest/application/activity" target="AndroidManifest.xml">
         <intent-filter>
+            <data android:scheme="userpilotcordovasample" />
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="userpilotcordovasample" />
+            <data android:scheme="userpilot-example" />
         </intent-filter>
     </config-file>
     <preference name="loglevel" value="DEBUG" />

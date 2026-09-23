@@ -24,6 +24,9 @@ document.addEventListener('deviceready', onDeviceReady, false);
 // Track if Userpilot SDK is initialized
 var isUserpilotInitialized = false;
 var pendingDeepLinkUrl = null;
+var DEMO_DEEP_LINK_URL = 'userpilot-example://demo';
+var userpilotEventHandlersRegistered = false;
+var userpilotCallbackRegistrationRequested = false;
 
 // Replace with your account token. It must match the URL scheme registered in
 // config.xml and package.json (`userpilot-<token>`), or deep links will not
@@ -234,8 +237,7 @@ function processDeepLink(url) {
             logOutput('Userpilot didHandleUrl result: ' + handled);
             
             if (!handled) {
-                // URL was not handled by Userpilot, you can add custom handling here
-                logOutput('Deep link not handled by Userpilot. Custom handling can be added here.');
+                logOutput('Deep link not handled by Userpilot. Checking the app route.');
                 handleCustomDeepLink(url);
             }
         },
@@ -247,16 +249,19 @@ function processDeepLink(url) {
 
 // Custom deep link handler for URLs not handled by Userpilot
 function handleCustomDeepLink(url) {
-    // Parse the URL and handle custom schemes/paths
+    if (typeof url !== 'string' || !url) return;
+
     try {
-        var urlParts = url.replace(/.*?:\/\//g, '').split('/');
-        var action = urlParts[0] || '';
-        var params = urlParts.slice(1);
-        
-        logOutput('Custom deep link - Action: ' + action + ', Params: ' + JSON.stringify(params));
-        
-        // Add your custom deep link handling logic here
-        // For example, navigate to a specific screen based on action
+        var parsedUrl = new URL(url);
+        if (parsedUrl.protocol !== 'userpilot-example:' || parsedUrl.host !== 'demo') {
+            logOutput('Unhandled app deep link. Expected ' + DEMO_DEEP_LINK_URL);
+            return;
+        }
+
+        var urlLabel = document.getElementById('deepLinkUrl');
+        if (urlLabel) urlLabel.textContent = url;
+        location.hash = '#/deep-link';
+        logOutput('Opened the Deep Link demo screen.');
     } catch (e) {
         logOutput('Error parsing custom deep link: ' + e.message);
     }
@@ -270,7 +275,7 @@ function setupDeepLinkHandler() {
         return;
     }
     
-    var ulPlugin = universalLinks || window.plugins.universalLinks;
+    var ulPlugin = typeof universalLinks !== 'undefined' ? universalLinks : window.plugins.universalLinks;
     
     logOutput('Setting up deep link handler...');
     
@@ -320,6 +325,7 @@ function setupViewRouter() {
         '/home': 'Userpilot',
         '/configuration': 'Configuration',
         '/sdk': 'SDK Methods',
+        '/deep-link': 'Deep Link',
         '/autocapture': 'Auto-Capture',
         '/stress': 'Stress Screens',
         '/components': 'Components',
@@ -349,7 +355,10 @@ function setupViewRouter() {
 
     window.addEventListener('hashchange', render);
     if (!location.hash) {
-        location.hash = '#/home';
+        // Seed the first WebView history entry synchronously. On a cold-start
+        // deep link, the pending route is replayed later and becomes the next
+        // entry, so Android Back returns to Home instead of closing the app.
+        history.replaceState(null, '', '#/home');
     }
     render();
 
@@ -703,6 +712,10 @@ function initializeUserpilot() {
             logOutput('Userpilot SDK initialized successfully');
             isUserpilotInitialized = true;
 
+            // Native holds startup navigation until callbacks are registered.
+            // Subscribe before replaying a URL that may emit another navigation event.
+            registerCallbacks();
+
             // Process any deep link that arrived before initialization. Cleared
             // first so the replay is not held a second time by processDeepLink.
             if (pendingDeepLinkUrl) {
@@ -734,6 +747,15 @@ function setupEventListeners() {
     if (deepLinkBtn) {
         deepLinkBtn.addEventListener('click', testDeepLink);
     }
+    var demoDeepLinkBtn = document.getElementById('demoDeepLinkBtn');
+    if (demoDeepLinkBtn) {
+        demoDeepLinkBtn.addEventListener('click', testDemoDeepLink);
+    }
+}
+
+function testDemoDeepLink() {
+    logOutput('Testing demo deep link: ' + DEMO_DEEP_LINK_URL);
+    processDeepLink(DEMO_DEEP_LINK_URL);
 }
 
 // Test deep link handling with a sample URL
@@ -766,11 +788,7 @@ function executePluginMethod(methodName, args, successMessage) {
 
 // Plugin method implementations
 function callSetup() {
-    var token = getAppTokenForSetup();
-    var options = buildSetupOptionsFromStorage();
-
-    logOutput('Setup options: ' + JSON.stringify(options));
-    executePluginMethod('setup', [token, options], 'Setup success');
+    initializeUserpilot();
 }
 
 function callIdentify() {
@@ -816,37 +834,56 @@ function callEndExperience() {
 }
 
 function registerCallbacks() {
-    logOutput('Registering SDK callbacks...');
-    
     const plugin = getUserpilotPlugin();
     if (!plugin) {
         logOutput('Userpilot plugin not found. Make sure the plugin is installed.');
         return;
     }
-    
-    // Register test event handler
-    if (typeof plugin.on === 'function') {
-        plugin.on('TestEvent', (data) => {
-            logCallback('TestEvent', data);
-        });
+
+    if (!isUserpilotInitialized) {
+        logOutput('SDK callbacks will be registered after setup completes.');
+        return;
     }
-    
-    plugin.onUserpilotNavigationEvent((data) => {
-        logCallback('UserpilotNavigationEvent', data);
-    });
-    
-    plugin.onUserpilotAnalyticsEvent((data) => {
-        logCallback('UserpilotAnalyticsEvent', data);
-    });
-    
-    plugin.onUserpilotExperienceEvent((data) => {
-        logCallback('UserpilotExperienceEvent', data);
-    });
-    
+    if (userpilotCallbackRegistrationRequested) {
+        logOutput('SDK callbacks are already registered.');
+        return;
+    }
+
+    // The button and automatic setup share this path; never add duplicate handlers.
+    if (!userpilotEventHandlersRegistered) {
+        if (typeof plugin.on === 'function') {
+            plugin.on('TestEvent', (data) => {
+                logCallback('TestEvent', data);
+            });
+        }
+
+        plugin.onUserpilotNavigationEvent((data) => {
+            logCallback('UserpilotNavigationEvent', data);
+            // The SDK already handled the envelope. Route its destination directly
+            // instead of sending it back through didHandleUrl.
+            if (data && data.url) handleCustomDeepLink(data.url);
+        });
+
+        plugin.onUserpilotAnalyticsEvent((data) => {
+            logCallback('UserpilotAnalyticsEvent', data);
+        });
+
+        plugin.onUserpilotExperienceEvent((data) => {
+            logCallback('UserpilotExperienceEvent', data);
+        });
+        userpilotEventHandlersRegistered = true;
+    }
+
     // Register the native callback handler
+    logOutput('Registering SDK callbacks...');
+    userpilotCallbackRegistrationRequested = true;
     plugin.registerCallbacks(
-        () => logOutput('Callbacks registered successfully'),
-        (error) => logOutput('Callbacks registration error: ' + JSON.stringify(error))
+        // This callback is a persistent event stream, not a registration acknowledgment.
+        function () {},
+        function (error) {
+            userpilotCallbackRegistrationRequested = false;
+            logOutput('Callbacks registration error: ' + JSON.stringify(error));
+        }
     );
 }
 

@@ -51,6 +51,12 @@
 				<string>userpilot-APP_TOKEN</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>userpilot-example</string>
+			</array>
+		</dict>
 	</array>
 </dict>
 </plist>
