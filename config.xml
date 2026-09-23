@@ -16,6 +16,12 @@
     
     <!-- iOS Platform Configuration -->
     <platform name="ios">
+        <hook type="after_prepare" src="scripts/configure-ios-project.js" />
+        <hook type="before_compile" src="scripts/configure-ios-project.js" />
+
+        <!-- The deeplinks plugin references this file in App/Resources on Cordova iOS 8. -->
+        <resource-file src="resources/ios/UserpilotSample.entitlements" target="UserpilotSample.entitlements" />
+
         <!-- Set minimum iOS deployment target to 13.0 -->
         <preference name="deployment-target" value="13.0" />
         <preference name="target-device" value="universal" />
