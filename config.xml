@@ -22,6 +22,18 @@
         <!-- The deeplinks plugin references this file in App/Resources on Cordova iOS 8. -->
         <resource-file src="resources/ios/UserpilotSample.entitlements" target="UserpilotSample.entitlements" />
 
+        <!-- App demo route; the Userpilot token scheme remains owned by the URL plugins. -->
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>userpilot-example</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+
         <!-- Set minimum iOS deployment target to 13.0 -->
         <preference name="deployment-target" value="13.0" />
         <preference name="target-device" value="universal" />
@@ -78,6 +90,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="userpilotcordovasample" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Keep scheme-only: the deeplinks hook replaces filters with a host.
+                     handleCustomDeepLink validates the demo host in JavaScript. -->
+                <data android:scheme="userpilot-example" />
             </intent-filter>
         </config-file>
     </platform>
