@@ -1,0 +1,23 @@
+{
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-deeplinks": {
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "cordova-plugin-customurlscheme": {
+      "URL_SCHEME": "userpilot-APP_TOKEN",
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    },
+    "@userpilot/cordova": {
+      "DEPLOYMENT-TARGET": "13.0",
+      "PACKAGE_NAME": "com.userpilot.cordovasample"
+    }
+  },
+  "dependent_plugins": {}
+}

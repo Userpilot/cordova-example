@@ -1,0 +1,37 @@
+{
+  "cordova-plugin-deeplinks": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-deeplinks@^1.1.1"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "userpilot-APP_TOKEN",
+      "DEEPLINK_HOST": "sdk",
+      "ANDROID_PATH_PREFIX": "/"
+    }
+  },
+  "cordova-plugin-customurlscheme": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-customurlscheme@^5.0.2"
+    },
+    "is_top_level": true,
+    "variables": {
+      "URL_SCHEME": "userpilot-APP_TOKEN",
+      "ANDROID_SCHEME": " ",
+      "ANDROID_HOST": " ",
+      "ANDROID_PATHPREFIX": "/"
+    }
+  },
+  "@userpilot/cordova": {
+    "source": {
+      "type": "registry",
+      "id": "file:../cordova-plugin"
+    },
+    "is_top_level": true,
+    "variables": {
+      "DEPLOYMENT-TARGET": "13.0"
+    }
+  }
+}

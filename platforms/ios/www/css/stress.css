@@ -1,0 +1,441 @@
+/*
+ * Styles for the auto-capture stress screens (see js/stress.js).
+ *
+ * Kept in its own file because the cards are a fixture rather than app UI:
+ * the shapes here exist to exercise the engine's element classifier, its
+ * ancestor walk and its sibling-index scan, and they should be readable as
+ * such next to the code that builds them.
+ */
+
+/* Wrappers injected by nest(): each one is another ancestor between the tapped
+   node and the document, and each carries a class the engine reads. */
+.nest-pad {
+    padding: 1px;
+}
+.nest-box {
+    border: 0 solid transparent;
+}
+.nest-inline {
+    display: block;
+}
+.nest-clip {
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+/* Controls live above the cards rather than in the header, so the header's own
+   nodes stay out of the area being scrolled and measured. */
+.heavy-actions {
+    padding: 8px 0;
+    border-bottom: 1px solid #CCCCCC;
+    margin-bottom: 8px;
+}
+
+.heavy-preset-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.heavy-preset-btn {
+    flex: 1 1 auto;
+    padding: 8px 10px;
+    border: 1px solid #4B946A;
+    border-radius: 6px;
+    background: #FFFFFF;
+    color: #4B946A;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.heavy-preset-btn.selected {
+    background: #4B946A;
+    color: #FFFFFF;
+}
+
+.heavy-switch-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+.heavy-note {
+    display: block;
+    margin: 0 0 8px 0;
+}
+
+.heavy-card {
+    background: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 8px;
+    margin: 0 0 10px 0;
+    overflow: hidden;
+}
+
+/* Hero */
+
+.heavy-hero-stack {
+    position: relative;
+}
+
+.heavy-hero,
+.heavy-thumb,
+.heavy-avatar-img {
+    display: block;
+    object-fit: cover;
+}
+
+.heavy-hero {
+    width: 100%;
+    height: 130px;
+}
+
+/* Stands in for a photo whenever photos are off, the image is still loading,
+   or the fetch failed — so the card looks and lays out the same offline. */
+.heavy-gradient {
+    background: linear-gradient(135deg, #6A8CFF 0%, #B06AB3 100%);
+}
+
+.heavy-hero-bookmark {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.heavy-hero-tag {
+    position: absolute;
+    left: 8px;
+    bottom: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.45);
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+.heavy-card-body {
+    padding: 10px 12px 12px 12px;
+}
+
+/* Author row */
+
+.heavy-author-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.heavy-avatar-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    flex: 0 0 auto;
+}
+
+.heavy-author-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+.heavy-author-name {
+    font-weight: 600;
+}
+
+.heavy-meta {
+    color: #666666;
+    font-size: 12px;
+}
+
+.heavy-icon-btn {
+    border: 0;
+    background: none;
+    font-size: 18px;
+    color: #333333;
+    padding: 2px 6px;
+}
+
+.heavy-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 10px 0 4px 0;
+}
+
+.heavy-body {
+    margin: 0;
+    color: #666666;
+}
+
+/* Nested horizontal scrollers: thumbnails, chips and the table all sit inside
+   the page's own vertical scroller, as they do in a real feed. */
+.heavy-scroller {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 6px;
+    overflow-x: auto;
+    margin-top: 10px;
+}
+
+.heavy-thumb-wrap {
+    flex: 0 0 auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.heavy-thumb-wrap,
+.heavy-thumb {
+    width: 72px;
+    height: 72px;
+}
+
+.heavy-chip {
+    flex: 0 0 auto;
+    padding: 4px 10px;
+    border: 1px solid #CCCCCC;
+    border-radius: 14px;
+    background: #FFFFFF;
+    color: #333333;
+    font-size: 12px;
+}
+
+/* Metrics, rating, controls */
+
+.heavy-metrics-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.heavy-metric {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.heavy-metric-value {
+    font-weight: 600;
+}
+
+.heavy-rating-row,
+.heavy-control-row,
+.heavy-action-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.heavy-star {
+    border: 0;
+    background: none;
+    color: #D97706;
+    font-size: 16px;
+    padding: 0 2px;
+}
+
+.heavy-control-row input[type="range"] {
+    flex: 1;
+}
+
+.heavy-spacer {
+    flex: 1;
+}
+
+.heavy-action-btn {
+    border: 0;
+    background: none;
+    color: #4B946A;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 4px 6px;
+}
+
+.heavy-action-btn.liked {
+    color: #DC2626;
+}
+
+.heavy-action-btn.outline {
+    border: 1px solid #4B946A;
+    border-radius: 4px;
+}
+
+/* Form block: the controls that exercise text, value and selection capture. */
+.heavy-form-block {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #DDDDDD;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.heavy-form-block input,
+.heavy-form-block select,
+.heavy-form-block textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #CCCCCC;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.heavy-form-block label {
+    font-size: 12px;
+    color: #666666;
+}
+
+/* Dense table: many cells sharing few parents. */
+.heavy-table {
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.heavy-table th,
+.heavy-table td {
+    border: 1px solid #DDDDDD;
+    padding: 4px 6px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.heavy-table td button {
+    border: 0;
+    background: none;
+    font: inherit;
+    padding: 2px 4px;
+}
+
+/* 120 chips under one parent — the worst case for sibling indexing. */
+.heavy-wide-block {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #DDDDDD;
+}
+
+.heavy-wide-chip {
+    border: 0;
+    border-radius: 10px;
+    background: #EFEFEF;
+    color: #333333;
+    font-size: 10px;
+    padding: 2px 6px;
+}
+
+.heavy-stats-bar {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 8px;
+    font-family: monospace;
+    font-size: 12px;
+    background: #333333;
+    color: #FFFFFF;
+    border-radius: 4px;
+}
+
+.heavy-sentinel {
+    text-align: center;
+    color: #666666;
+    font-size: 12px;
+    padding: 12px 0;
+}
+
+/* Dark mode, following the same overrides index.css uses. The app declares
+   `color-scheme: light dark`, so a card left on a hard-coded white background
+   puts index.css's white `h2` on white and the title disappears. */
+@media screen and (prefers-color-scheme: dark) {
+    .heavy-card {
+        background: #2B2B2B;
+        border-color: #444444;
+    }
+
+    .heavy-body,
+    .heavy-meta,
+    .heavy-sentinel {
+        color: #AAAAAA;
+    }
+
+    .heavy-icon-btn {
+        color: #EEEEEE;
+    }
+
+    .heavy-actions {
+        border-bottom-color: #444444;
+    }
+
+    .heavy-preset-btn {
+        background: #2B2B2B;
+        color: #5BA97B;
+        border-color: #5BA97B;
+    }
+
+    .heavy-preset-btn.selected {
+        background: #5BA97B;
+        color: #1B1B1B;
+    }
+
+    .heavy-chip {
+        background: #1F1F1F;
+        color: #EEEEEE;
+        border-color: #555555;
+    }
+
+    .heavy-action-btn {
+        color: #5BA97B;
+    }
+
+    .heavy-action-btn.outline {
+        border-color: #5BA97B;
+    }
+
+    .heavy-form-block {
+        border-top-color: #444444;
+    }
+
+    .heavy-form-block label {
+        color: #AAAAAA;
+    }
+
+    .heavy-form-block input,
+    .heavy-form-block select,
+    .heavy-form-block textarea {
+        background: #1F1F1F;
+        color: #FFFFFF;
+        border-color: #555555;
+    }
+
+    .heavy-table th,
+    .heavy-table td {
+        border-color: #555555;
+    }
+
+    .heavy-table td button {
+        color: #EEEEEE;
+    }
+
+    .heavy-wide-block {
+        border-top-color: #444444;
+    }
+
+    .heavy-wide-chip {
+        background: #1F1F1F;
+        color: #EEEEEE;
+    }
+}

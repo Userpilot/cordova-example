@@ -8,6 +8,38 @@ This repo contains an example Cordova app that has everything you need to get st
 
 For information about how to get started with Cordova SDK, please check this [Guide](https://docs.userpilot.com/developer/installation/mobile/mobile-cordova).
 
+## Testing this app as-is
+
+The native projects under `platforms/` are committed, so a clone only needs the plugin installed into them. Clone this repo and [`cordova-plugin`](https://github.com/Userpilot/cordova-plugin) **side by side**, then:
+
+```bash
+npm install
+npm run add:userpilot:local     # installs ../cordova-plugin into both platforms
+```
+
+The plugin is deliberately *not* committed here: it lives in its own repo, and installing it at setup time means you always test the plugin you have rather than a stale copy.
+
+Then replace the `APP_TOKEN` placeholder with your account token in these places — the URL scheme is `userpilot-<token>`, and deep links do not reach the app if it does not match:
+
+| File | What to replace |
+| ---- | --------------- |
+| `www/js/index.js` | `DEFAULT_APP_TOKEN` (the token alone, e.g. `NX-12345678`) |
+| `config.xml` | the `<universal-links>` host `scheme` |
+| `package.json` | both `URL_SCHEME` values under `cordova.plugins` |
+| `ul_web_hooks/android/android_web_hook.html` | the `android-app://` link |
+
+Then re-add the two URL plugins so the natives pick the new scheme up, and build:
+
+```bash
+npx cordova plugin remove cordova-plugin-deeplinks cordova-plugin-customurlscheme
+npx cordova prepare
+npm run build:ios      # or: npm run build:android
+```
+
+You can also set the token at runtime from the app's **Configuration** screen, but the URL scheme still has to be edited before a QR code can open the app.
+
+> The plugin pins the published native SDKs — **1.3.0** on Maven Central and the `1.3.0` tag of the iOS SDK — so both platforms build from a clean clone with no local SDK build.
+
 ## How to get started?
 
 ### Create Userpilot Account
@@ -98,7 +130,45 @@ Press the **"Setup"** button to initialize the Userpilot SDK with your app token
 - **In-app browser disabled**: Links will open in external browser instead of in-app
 
 ### 2. Register for Callbacks
-Press **"Register Callbacks"** to start receiving SDK events in real-time.
+SDK callbacks are registered automatically after setup, including navigation events that arrived during startup. **"Register Callbacks"** can retry a failed registration; repeated presses do not add duplicate listeners.
+
+### Test the demo deep link
+
+Build and reinstall the app after changing `config.xml` so both platforms register the demo scheme:
+
+```bash
+npm run prepare
+npm run build:ios      # or: npm run build:android
+```
+
+After SDK setup, open **SDK Methods → Test Demo Deep Link**. The app forwards `userpilot-example://demo` to Userpilot, then opens the **Deep Link** screen when the SDK reports it as unhandled. The screen displays the received URL. **Test Experience Preview** keeps the existing SDK preview test separate.
+
+Use `userpilot-example://demo` as the destination of an experience action or push notification to test the SDK's navigation callback. It routes directly to the same screen.
+
+To test an incoming OS link on an installed app:
+
+```bash
+# Booted iOS Simulator
+xcrun simctl openurl booted 'userpilot-example://demo'
+
+# Connected Android device or emulator; target this sample if other samples are installed
+adb shell am start -W -a android.intent.action.VIEW -d 'userpilot-example://demo' com.userpilot.cordovasample
+```
+
+Repeat with the app running, in the background, and closed. For a cold start, URLs received before setup completes are replayed afterward. Configure your app token before testing. The demo scheme is registered directly in `config.xml`; the existing `userpilot-APP_TOKEN` URL-plugin settings in `package.json` still configure SDK previews and push links.
+
+The supplied iOS files live in `resources/ios/`. The iOS prepare/build hooks merge `UserpilotSample.entitlements` into the Debug/Release signing entitlements, preserving each configuration's push environment, and set Xcode's signing paths. Device builds read `exportOptions.plist` for the export settings, including its development method. Changes to either source file are applied on the next prepare/build.
+
+To use the supplied export options with an existing signed archive directly, run:
+
+```bash
+xcodebuild -exportArchive \
+  -archivePath platforms/ios/App.xcarchive \
+  -exportOptionsPlist resources/ios/exportOptions.plist \
+  -exportPath platforms/ios/build/Debug-iphoneos
+```
+
+Cordova generates `platforms/ios/exportOptions.plist` from the supplied settings and any explicit signing options passed to the build.
 
 ### 3. Identify Users
 Press **"Identify"** to identify a sample user. This associates subsequent events with that user.
