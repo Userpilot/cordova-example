@@ -1,7 +1,7 @@
 {
   "name": "com.userpilot.cordovasample",
   "displayName": "UserpilotSample",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Userpilot Cordova Plugin Sample App",
   "main": "index.js",
   "scripts": {
@@ -29,16 +29,14 @@
     "cordova-android": "^14.0.1",
     "cordova-ios": "^8.1.0",
     "cordova-plugin-customurlscheme": "^5.0.2",
-    "cordova-plugin-deeplinks": "^1.1.1"
+    "cordova-plugin-deeplinks": "^1.1.1",
+    "shelljs": "^0.10.0"
   },
   "cordova": {
     "platforms": [
       "android"
     ],
     "plugins": {
-      "@userpilot/cordova": {
-        "DEPLOYMENT-TARGET": "13.0"
-      },
       "cordova-plugin-deeplinks": {
         "URL_SCHEME": "userpilot-nx-b7b285fd",
         "DEEPLINK_HOST": "sdk",
@@ -46,6 +44,9 @@
       },
       "cordova-plugin-customurlscheme": {
         "URL_SCHEME": "userpilot-nx-b7b285fd"
+      },
+      "@userpilot/cordova": {
+        "DEPLOYMENT-TARGET": "13.0"
       }
     }
   }
